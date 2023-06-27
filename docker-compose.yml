@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  gamify:
+    image: skilltree/skills-service:2.7.0
+    container_name: gamify
+    depends_on:
+      - postgres_gamify
+    ports:
+      - 8080:8080
+    environment:
+      SPRING_PROPS: "\
+  spring.datasource.url=jdbc:postgresql://localhost:5432/skills,\
+  spring.datasource.username=skills,\
+  spring.datasource.password=skillsPassword"
+
+  postgres_gamify:
+    image: postgres:latest
+    container_name: postgres_gamify
+    user: 999:999
+    environment:
+      POSTGRES_USER: "skills"
+      POSTGRES_PASSWORD: "skillsPassword"
+      POSTGRES_DB: "gamify"
+    ports:
+      - "5432:5432"
+#    volumes:
+#      - ./data:/var/lib/postgresql/data
