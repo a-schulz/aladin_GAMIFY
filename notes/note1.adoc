@@ -1,0 +1,16 @@
+Replays localhost:8000/replays
+
+
+"formType": "ValueFormField",
+
+
+node 6  => UI.nodes.1.pathDescriptions.6
+
+skilltree backend not working if you create a root account before
+
+
+overall gamification aber auch für einzelne Fachgebiete, hier können die Profs sich dann austoben
+
+authentication als separaten docker container
+
+test vue component in ts
