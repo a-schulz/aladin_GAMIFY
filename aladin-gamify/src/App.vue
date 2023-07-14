@@ -1,51 +1,85 @@
-/*
-Copyright 2020 SkillTree
-
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
-
-https://www.apache.org/licenses/LICENSE-2.0
-
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
-*/
-<template>
-  <div>
-    <h1>Current User's Skills Display</h1>
-<!--    <skills-display/>-->
-    <hello-world-skills-display/>
-<!--    <h1>Report Skill Events</h1>-->
-<!--    <hello-world-skills-event-reporting/>-->
-<!--    <h3>Result:</h3>-->
-<!--    <hello-world-global-event-handler/>-->
-  </div>
-</template>
-
-<script>
-import { SkillsDisplay } from '@skilltree/skills-client-vue';
-import HelloWorldSkillsDisplay from "./components/HelloWorldSkillsDisplay.vue";
-import HelloWorldSkillsEventReporting from "./components/HelloWorldSkillsEventReporting.vue";
-import HelloWorldGlobalEventHandler from "./components/HelloWorldGlobalEventHandler.vue";
-
-export default {
-  name: 'App',
-  components: {
-    HelloWorldGlobalEventHandler,
-    HelloWorldSkillsEventReporting,
-    HelloWorldSkillsDisplay,
-    // SkillsDisplay,
-  }
-}
+<script setup lang="ts">
+import { RouterLink, RouterView } from 'vue-router'
+import HelloWorld from './components/HelloWorld.vue'
 </script>
 
-<style>
-body {
-  margin: 0px;
-  padding-bottom: 3rem;
+<template>
+  <header>
+    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
+
+    <div class="wrapper">
+      <HelloWorld msg="You did it!" />
+
+      <nav>
+        <RouterLink to="/">Home</RouterLink>
+        <RouterLink to="/about">About</RouterLink>
+      </nav>
+    </div>
+  </header>
+
+  <RouterView />
+</template>
+
+<style scoped>
+header {
+  line-height: 1.5;
+  max-height: 100vh;
+}
+
+.logo {
+  display: block;
+  margin: 0 auto 2rem;
+}
+
+nav {
+  width: 100%;
+  font-size: 12px;
   text-align: center;
+  margin-top: 2rem;
+}
+
+nav a.router-link-exact-active {
+  color: var(--color-text);
+}
+
+nav a.router-link-exact-active:hover {
+  background-color: transparent;
+}
+
+nav a {
+  display: inline-block;
+  padding: 0 1rem;
+  border-left: 1px solid var(--color-border);
+}
+
+nav a:first-of-type {
+  border: 0;
+}
+
+@media (min-width: 1024px) {
+  header {
+    display: flex;
+    place-items: center;
+    padding-right: calc(var(--section-gap) / 2);
+  }
+
+  .logo {
+    margin: 0 2rem 0 0;
+  }
+
+  header .wrapper {
+    display: flex;
+    place-items: flex-start;
+    flex-wrap: wrap;
+  }
+
+  nav {
+    text-align: left;
+    margin-left: -1rem;
+    font-size: 1rem;
+
+    padding: 1rem 0;
+    margin-top: 1rem;
+  }
 }
 </style>

@@ -1,15 +1,14 @@
-import { createApp } from 'vue'
-import App from './App.vue'
-import { SkillsDirective, SkillsConfiguration } from '@skilltree/skills-client-vue';
+import './assets/main.css'
 
-// Vue.config.productionTip = false
+import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
+import App from './App.vue'
+import router from './router'
 
 const app = createApp(App)
-  .use(SkillsDirective)
-  .mount('#app');
 
-SkillsConfiguration.configure({
-    serviceUrl: 'http://localhost:8080',
-    projectId: 'movies',
-    authenticator: 'http://localhost:8090/api/users/user4@email.com/token',
-});
+app.use(createPinia())
+app.use(router)
+
+app.mount('#app')
