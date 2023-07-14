@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { RouterLink, RouterView } from 'vue-router'
 import HelloWorld from './components/HelloWorld.vue'
+import HelloWorldSkillTree from "@/components/HelloWorldSkillsDisplay.vue";
 </script>
 
 <template>
@@ -16,6 +17,7 @@ import HelloWorld from './components/HelloWorld.vue'
       </nav>
     </div>
   </header>
+  <hello-world-skill-tree></hello-world-skill-tree>
 
   <RouterView />
 </template>

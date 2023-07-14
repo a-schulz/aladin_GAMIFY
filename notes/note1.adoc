@@ -14,3 +14,5 @@ overall gamification aber auch für einzelne Fachgebiete, hier können die Profs
 authentication als separaten docker container
 
 test vue component in ts
+
+client library is made for "vue": "2.6.12"
