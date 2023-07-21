@@ -62,61 +62,60 @@ public class InitSkillServiceWithData {
     void load() throws Exception {
         log.info("SkillsConfig [" + skillsConfig + "]");
 
-//        if (skillsConfig.getCreateRootAccount()) {
-//            createRootAccount();
-//        } else if (!skillsConfig.isPkiMode()) {
-//            createUser(skillsConfig.getServiceUrl() + "/createAccount");
-//        }
+//         if (skillsConfig.getCreateRootAccount()) {
+//             createRootAccount();
+//         } else if (!skillsConfig.isPkiMode()) {
+//             createUser(skillsConfig.getServiceUrl() + "/createAccount");
+//         }
 //
-//        String serviceUrl = skillsConfig.getServiceUrl();
-//        RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
+//         String serviceUrl = skillsConfig.getServiceUrl();
+//         RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
 //
-//        List<Project> projects = sampleDatasetLoader.getProjects();
-//        projectLoop:
-//        for (Project project : projects) {
-//            if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
-//                log.info("Project [" + project.getName() + "] already exists!");
-//                break projectLoop;
-//            }
-//            String projectId = project.getId();
-//            post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
+//         List<Project> projects = sampleDatasetLoader.getProjects();
+//         projectLoop:
+//         for (Project project : projects) {
+//             if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
+//                 log.info("Project [" + project.getName() + "] already exists!");
+//                 break projectLoop;
+//             }
+//             String projectId = project.getId();
+//             post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
 //
-//            log.info("\nStarting to create schema for project [" + projectId + "]\n" +
-//                    "  [" + project.getSubjects().size() + "] subjects\n" +
-//                    "  [" + project.getBadges().size() + "] badges");
-//            String projectUrl = serviceUrl + "/admin/projects/" + projectId;
-//            addSubjects(project, rest, projectUrl);
-//            addBadges(project, rest, projectUrl);
+//             log.info("\nStarting to create schema for project [" + projectId + "]\n" +
+//                     "  [" + project.getSubjects().size() + "] subjects\n" +
+//                     "  [" + project.getBadges().size() + "] badges");
+//             String projectUrl = serviceUrl + "/admin/projects/" + projectId;
+//             addSubjects(project, rest, projectUrl);
+//             addBadges(project, rest, projectUrl);
 //
-//            // pin the project on the root user's admin view and enable production mode
-//            if (skillsConfig.getCreateRootAccount()) {
-//                post(rest, serviceUrl + "/root/pin/" + projectId);
-//            }
-//            post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
-//            post(rest, serviceUrl + "/api/myprojects/" + projectId);
-//            achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
-//            reportSkills(rest, project);
-//            approveAndRejectSomePendingApprovals(project, rest);
+//             // pin the project on the root user's admin view and enable production mode
+//             if (skillsConfig.getCreateRootAccount()) {
+//                 post(rest, serviceUrl + "/root/pin/" + projectId);
+//             }
+//             post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
+//             post(rest, serviceUrl + "/api/myprojects/" + projectId);
+//             achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
+//             reportSkills(rest, project);
+//             approveAndRejectSomePendingApprovals(project, rest);
 //
-//            log.info("Project [" + projectId + "] was created!");
-//        }
+//             log.info("Project [" + projectId + "] was created!");
+//         }
 //
-//        assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
-//        assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList(
-//                "HarryPotterandthePhilosophersStone",
-//                "HarryPotterandtheChamberofSecrets",
-//                "HarryPotterandthePrisonerofAzkaban",
-//                "HarryPotterandtheGobletofFire",
-//                "HarryPotterandtheOrderofthePhoenix",
-//                "HarryPotterandtheHalfBloodPrince",
-//                "HarryPotterandtheDeathlyHallowsPart1",
-//                "HarryPotterandtheDeathlyHallowsPart2"))
-//        );
-//        if (skillsConfig.getCreateRootAccount()) {
-//            addGlobalBadge(rest, serviceUrl, 2);
-//        }
+//         assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
+//         assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
+//         assignDependency(rest, "movies", "DespicableMeCollection", "TheTwilightCollection");
+//         assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList(
+//                 "HarryPotterandthePhilosophersStone",
+//                 "HarryPotterandtheChamberofSecrets",
+//                 "HarryPotterandthePrisonerofAzkaban",
+//                 "HarryPotterandtheGobletofFire",
+//                 "HarryPotterandtheOrderofthePhoenix"))
+//         );
+//         if (skillsConfig.getCreateRootAccount()) {
+//             addGlobalBadge(rest, serviceUrl, 2);
+//         }
 //
-//        createQuizzesAndSurveys(rest);
+//         createQuizzesAndSurveys(rest);
     }
 
     private void createQuizzesAndSurveys(RestTemplate rest) {
@@ -496,15 +495,16 @@ public class InitSkillServiceWithData {
 
     private void assignDependency(RestTemplate rest, String projectId, String fromSkillId, String toSkillId) {
         String serviceUrl = skillsConfig.getServiceUrl();
-        post(rest, serviceUrl + "/admin/projects/" + projectId + "/skills/" + fromSkillId + "/dependency/" + toSkillId);
-        log.info("Assigned project (" + projectId + ") dependency: " + fromSkillId + " -> " + toSkillId);
+        String endpoint = "/admin/projects/" + projectId + "/" + fromSkillId + "/prerequisite/" + projectId + "/" + toSkillId;
+        log.info("Assigning project (" + projectId + ") dependency: " + fromSkillId + " -> " + toSkillId + " (" + endpoint + ")");
+        post(rest, serviceUrl + endpoint);
     }
 
     private void assignCrossProjectDependency(RestTemplate rest, String fromProjId, String fromSkillId, String toProjId, String toSkillId) {
         String serviceUrl = skillsConfig.getServiceUrl();
         // share skill with other project and then assign cross project dependency
         post(rest, serviceUrl + "/admin/projects/" + fromProjId + "/skills/" + fromSkillId + "/shared/projects/" + toProjId);
-        post(rest, serviceUrl + "/admin/projects/" + toProjId + "/skills/" + toSkillId + "/dependency/projects/" + fromProjId + "/skills/" + fromSkillId);
+        post(rest, serviceUrl + "/admin/projects/" + toProjId + "/" + toSkillId + "/prerequisite/" + fromProjId + "/" + fromSkillId);
         log.info("Assigned cross-project dependency: " + fromProjId + ":" + fromSkillId + " -> " + toProjId + ":" + toSkillId);
     }
 
