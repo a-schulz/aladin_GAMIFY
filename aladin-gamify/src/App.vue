@@ -1,25 +1,12 @@
 <script setup lang="ts">
-import { RouterLink, RouterView } from 'vue-router'
-import HelloWorld from './components/HelloWorld.vue'
 import HelloWorldSkillTree from "@/components/HelloWorldSkillsDisplay.vue";
+import GetScore from "@/components/GetScore.vue";
 </script>
 
 <template>
-  <header>
-    <img alt="Vue logo" class="logo" src="@/assets/logo.svg" width="125" height="125" />
-
-    <div class="wrapper">
-      <HelloWorld msg="You did it!" />
-
-      <nav>
-        <RouterLink to="/">Home</RouterLink>
-        <RouterLink to="/about">About</RouterLink>
-      </nav>
-    </div>
-  </header>
+  <h4>Gamify!</h4>
+  <get-score/>
   <hello-world-skill-tree></hello-world-skill-tree>
-
-  <RouterView />
 </template>
 
 <style scoped>
