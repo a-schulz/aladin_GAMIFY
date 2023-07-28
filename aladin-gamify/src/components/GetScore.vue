@@ -1,7 +1,12 @@
-<script setup lang="ts">
+<script lang="ts" setup>
 import {ref} from "vue";
+import savedPaths from "../test_data/savedPaths.json"
+import recording from "../test_data/615251051.json"
+import { uuid } from 'uuidv4';
+const normalizePath = (path: string) => path.replaceAll(/__[0-9]/g, '')
 
-const path = ref("")
+const relevantSteps = recording.steps.filter((step: any) => savedPaths.paths.includes(normalizePath(step.path)))
+console.log(relevantSteps)
 const getPropertyFromPath = (path: any) => {
   console.log("path", path.value)
 }
@@ -12,11 +17,33 @@ const getPropertyFromPath = (path: any) => {
 //     else return null;
 //   }, state);
 // }
+
 </script>
 
 <template>
-  <input v-model="path">
-  <button @click="getPropertyFromPath">Add 1</button>
+  <p class="d-inline-flex gap-1">
+    <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
+      Show relevant paths
+    </button>
+  </p>
+  <div class="collapse" id="collapseExample">
+    <div class="card card-body">
+      <table>
+        <tr>
+          <th>Path</th>
+          <th>Value</th>
+        </tr>
+        <tr v-for="step in relevantSteps" :key="step.timestamp">
+          <td>{{step.path}}</td>
+          <td>{{step.value}}</td>
+        </tr>
+      </table>
+    </div>
+  </div>
+  <br/>
+  <button class="btn btn-primary" type="button">
+    Calculate score
+  </button>
 </template>
 
 <style scoped>

@@ -1,9 +1,14 @@
 <script setup lang="ts">
-import TheWelcome from '../components/TheWelcome.vue'
+import GetScore from '@/components/GetScore.vue'
+import HelloWorldSkillsDisplay from "@/components/HelloWorldSkillsDisplay.vue";
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <div class="container">
+  <h4>Gamify!</h4>
+  <get-score/>
+  </div>
+  <div class="container">
+  <hello-world-skills-display/>
+  </div>
 </template>

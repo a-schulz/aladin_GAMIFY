@@ -1,12 +1,8 @@
 <script setup lang="ts">
-import HelloWorldSkillTree from "@/components/HelloWorldSkillsDisplay.vue";
-import GetScore from "@/components/GetScore.vue";
 </script>
 
 <template>
-  <h4>Gamify!</h4>
-  <get-score/>
-  <hello-world-skill-tree></hello-world-skill-tree>
+  <router-view></router-view>
 </template>
 
 <style scoped>
