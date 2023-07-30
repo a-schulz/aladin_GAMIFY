@@ -4,10 +4,11 @@
     "zoomScale",
     "nodes__layouts__lg",
     "nodes__components__contextMenu__isOpen",
-    "nodes__components__contextMenu__isOpen",
-    "nodes__components__contextMenu__isOpen",
     "nodes__layouts",
     "nodes__components",
-    "nodes__interjections__applied"
+    "nodes__interjections__applied",
+    "nodes__modals__active",
+    "previousNode",
+    "currentNode"
   ]
 }
