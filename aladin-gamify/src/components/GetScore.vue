@@ -50,15 +50,17 @@ const steps2object = (steps: ISteps[]) => {
       }
     }
   });
-  console.log(result)
   return result;
 };
+
 // ToDO: define more metrics
+// should later be added to taskDefinition.json
 const metricsCalculation = {
 
   // define the time for each node in s (key = node) [should be specific to difficulty from task - can be statistically calculated from user data]
   timeForNode: {
-    0: undefined,
+    // unlimited time to create the task
+    0: 9999999999,
     6: 600,
     7: 1200
   },
@@ -69,7 +71,30 @@ const metricsCalculation = {
     7: 20
   }
 }
+/**
+ * Recursively extract all timestamps from the given object
+ * @param obj - The object to traverse
+ * @returns An array of all timestamps found in the object
+ */
+const extractTimestamps = (obj: any): number[] => {
+  const timestamps: number[] = [];
 
+  const extractTimestampsRecursive = (data: any) => {
+    if (data && typeof data === 'object') {
+      if (data.timestamp !== undefined) {
+        timestamps.push(data.timestamp);
+      } else {
+        for (const key in data) {
+          extractTimestampsRecursive(data[key]);
+        }
+      }
+    }
+  };
+  extractTimestampsRecursive(obj);
+  return timestamps;
+};
+
+// ToDo: split to multiple separated functions
 /**
  *
  * @param inputSteps
@@ -86,14 +111,58 @@ const calculateScore = (inputSteps: ISteps[]) => {
       const timeForNode = metricsCalculation.timeForNode[nodeKey];
       const totalScore = metricsCalculation.totalScore[nodeKey];
       let componentScores: Record<string, number> = {};
+      console.log(nodeData)
       for (let componentKey in nodeData["components"]) {
         const componentData = nodeData["components"][componentKey];
         if (componentData) {
           // Score for each component is calculated in percent
+          console.log(componentData)
+          // {
+          //   "component": {
+          //   "validationData": {
+          //     "value": [
+          //       [.....
+          //       ]
+          //     ],
+          //         "timestamp": 1690551702500
+          //   },
+          //   "userData": {
+          //     "0": {
+          //       "0": {
+          //         "value": "0",
+          //             "timestamp": 1690551745267
+          //       },
+          //       "1": {
+          //         "value": "0",
+          //             "timestamp": 1690551745806
+          //       }
+          //     },
+          //     "value": [
+          //       [.....
+          //       ]
+          //     ],
+          //         "timestamp": 1690551748396
+          //   }
+          // },
+          //   "isValid": {
+          //   "value": true,
+          //       "timestamp": 1690551748400
+          // },
+          //   "contextMenu": {
+          //   "usedMethods": {
+          //     "value": [
+          //       "showSolution"
+          //     ],
+          //         "timestamp": 1690551748395
+          //   }
+          // }
+          // }
           let componentScore = 1;
           // TODO
+          // depending on the formType (Where is the formType stored in the replay?)
           // Calculate the score for each component
           // ... your scoring logic goes here ...
+
           componentScores[componentKey] = componentScore
         }
       }
@@ -104,7 +173,12 @@ const calculateScore = (inputSteps: ISteps[]) => {
       })
       // calculate the absolute score for each node
       nodeScore *= totalScore;
-      // ToDo: Add timestamp to equation
+      // consider the time for each node
+      // Get the timestamps for each nodeData object
+      const timestamps = extractTimestamps(nodeData);
+      const time = (Math.max(...timestamps) - Math.min(...timestamps)) / 1000;
+      nodeScore = (time / timeForNode) <= 1 ? nodeScore : nodeScore / (time / timeForNode);
+
       nodeScores[nodeKey] = {
         components: componentScores,
         score: nodeScore
@@ -130,7 +204,6 @@ const calculateScore = (inputSteps: ISteps[]) => {
       finalScores[nodeKey] = finalScore;
     }
   }
-
   console.log(finalScores)
   return finalScores;
 };
@@ -147,7 +220,7 @@ const score = ref(0);
             data-bs-toggle="collapse" type="button">
       Show relevant paths
     </button>
-    <button class="btn btn-primary" type="button" @click="() => {calculateScore(relevantSteps)}">
+    <button class="btn btn-primary" type="button" @click="() => {score = Object.values(calculateScore(relevantSteps)).map((node) => node['score']).reduce((a,b) => a+b)}">
       Calculate score
     </button>
     <h4>Score: {{ score }}</h4>
