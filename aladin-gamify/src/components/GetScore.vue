@@ -1,8 +1,8 @@
 <script lang="ts" setup>
-import {ref} from "vue";
+import { ref } from "vue";
 import savedPaths from "../test_data/savedPaths.json";
 import recording from "../test_data/615251051.json";
-import {IReplay, IState, ISteps} from "../../../../CARPET/src/interfaces/TaskGraphInterface.ts";
+import { IReplay, IState, ISteps } from "../../../../CARPET/src/interfaces/TaskGraphInterface.ts";
 
 /**
  * Removes the numbers from the path, so that the path can be compared with the savedPaths
@@ -62,15 +62,15 @@ const metricsCalculation = {
     // unlimited time to create the task
     0: 9999999999,
     6: 600,
-    7: 1200
+    7: 1200,
   },
   // define the maximum score for each node (key = node) [should be specific to difficulty from task]
   totalScore: {
     0: 5,
     6: 10,
-    7: 20
-  }
-}
+    7: 20,
+  },
+};
 /**
  * Recursively extract all timestamps from the given object
  * @param obj - The object to traverse
@@ -80,7 +80,7 @@ const extractTimestamps = (obj: any): number[] => {
   const timestamps: number[] = [];
 
   const extractTimestampsRecursive = (data: any) => {
-    if (data && typeof data === 'object') {
+    if (data && typeof data === "object") {
       if (data.timestamp !== undefined) {
         timestamps.push(data.timestamp);
       } else {
@@ -111,66 +111,69 @@ const calculateScore = (inputSteps: ISteps[]) => {
       const timeForNode = metricsCalculation.timeForNode[nodeKey];
       const totalScore = metricsCalculation.totalScore[nodeKey];
       let componentScores: Record<string, number> = {};
-      console.log(nodeData)
+      console.log(nodeData);
       for (let componentKey in nodeData["components"]) {
         const componentData = nodeData["components"][componentKey];
         if (componentData) {
           // Score for each component is calculated in percent
-          console.log(componentData)
-          // {
-          //   "component": {
-          //   "validationData": {
-          //     "value": [
-          //       [.....
-          //       ]
-          //     ],
-          //         "timestamp": 1690551702500
-          //   },
-          //   "userData": {
-          //     "0": {
-          //       "0": {
-          //         "value": "0",
-          //             "timestamp": 1690551745267
-          //       },
-          //       "1": {
-          //         "value": "0",
-          //             "timestamp": 1690551745806
-          //       }
-          //     },
-          //     "value": [
-          //       [.....
-          //       ]
-          //     ],
-          //         "timestamp": 1690551748396
-          //   }
-          // },
-          //   "isValid": {
-          //   "value": true,
-          //       "timestamp": 1690551748400
-          // },
-          //   "contextMenu": {
-          //   "usedMethods": {
-          //     "value": [
-          //       "showSolution"
-          //     ],
-          //         "timestamp": 1690551748395
-          //   }
-          // }
-          // }
+          console.log(componentData);
+          // Mapping auf die Aufgabenstellung, bestimmen des Formtypes pro component
+          // "0": {
+          //   "name": "Direktbedarfsmatrix",
+          //     "type": "Matrix",
+          const log = {
+            "component": {
+              "validationData": {
+                "value": [
+                  [],
+                ],
+                "timestamp": 1690551702500,
+              },
+              "userData": {
+                "0": {
+                  "0": {
+                    "value": "0",
+                    "timestamp": 1690551745267,
+                  },
+                  "1": {
+                    "value": "0",
+                    "timestamp": 1690551745806,
+                  },
+                },
+                "value": [
+                  [],
+                ],
+                "timestamp": 1690551748396,
+              },
+            },
+            "isValid": {
+              "value": true,
+              "timestamp": 1690551748400,
+            },
+            "contextMenu": {
+              // Überlegung, die Punkte vor der Methode noch zählen nur alle weiteren nicht mehr?
+              "usedMethods": {
+                "value": [
+                  "showSolution",
+                ],
+                "timestamp": 1690551748395,
+              },
+            },
+          };
           let componentScore = 1;
           // TODO
           // depending on the formType (Where is the formType stored in the replay?)
           // Calculate the score for each component
           // ... your scoring logic goes here ...
 
-          componentScores[componentKey] = componentScore
+          componentScores[componentKey] = componentScore;
         }
       }
       let nodeScore = Object.keys(componentScores).map((key) => {
         return componentScores[key];
       }).reduce((a: number, b: number) => {
         return (a + b) / 2;
-      })
+      });
       // calculate the absolute score for each node
       nodeScore *= totalScore;
       // consider the time for each node
@@ -181,7 +184,7 @@ const calculateScore = (inputSteps: ISteps[]) => {
 
       nodeScores[nodeKey] = {
         components: componentScores,
-        score: nodeScore
+        score: nodeScore,
       };
     }
   }
@@ -204,7 +207,7 @@ const calculateScore = (inputSteps: ISteps[]) => {
       finalScores[nodeKey] = finalScore;
     }
   }
-  console.log(finalScores)
+  console.log(finalScores);
   return finalScores;
 };
 
@@ -220,7 +223,8 @@ const score = ref(0);
             data-bs-toggle="collapse" type="button">
       Show relevant paths
     </button>
-    <button class="btn btn-primary" type="button" @click="() => {score = Object.values(calculateScore(relevantSteps)).map((node) => node['score']).reduce((a,b) => a+b)}">
+    <button class="btn btn-primary" type="button"
+            @click="() => {score = Object.values(calculateScore(relevantSteps)).map((node) => node['score']).reduce((a,b) => a+b)}">
       Calculate score
     </button>
     <h4>Score: {{ score }}</h4>
