@@ -1,8 +1,9 @@
 <script lang="ts" setup>
-import { ref } from "vue";
-import savedPaths from "../test_data/savedPaths.json";
-import recording from "../test_data/615251051.json";
-import { IReplay, IState, ISteps } from "../../../../CARPET/src/interfaces/TaskGraphInterface.ts";
+import {ref} from "vue";
+import {savedPaths} from "../test_data/savedPaths";
+import {definition} from "../test_data/definition";
+import recording from "../test_data/data.json";
+import {IReplay, IState, ISteps} from "../../../../CARPET/src/interfaces/TaskGraphInterface.ts";
 
 /**
  * Removes the numbers from the path, so that the path can be compared with the savedPaths
@@ -10,67 +11,7 @@ import { IReplay, IState, ISteps } from "../../../../CARPET/src/interfaces/TaskG
  */
 const normalizePath = (path: string) => path.replaceAll(/__[0-9]/g, "");
 
-/**
- * multiply the score for this component with these values e.g. showSolution -> score * 0 = 0
- */
-const impactMethodsToScore = {
-  "fillZeros": 0.5,
-  "showSolution": 0,
-  "copyToClipboard": 1,
-};
 
-/**
- * Converts an array of steps to an object, where the path is the key and the value is the value
- * @param steps
- */
-const steps2object = (steps: ISteps[]) => {
-  let result: Record<string, any> = {};
-  steps.forEach((step: ISteps) => {
-    // Split the inputString by "__"
-    const keys: string[] = step.path.split("__");
-    // Reference to the current object being modified
-    let currentObject: Record<string, any> = result;
-    // Iterate through the keys array and construct the nested object
-    for (let i = 0; i < keys.length; i++) {
-      const key = keys[i];
-
-      if (i === keys.length - 1) {
-        // If it's the last key, add the value along with the timestamp to the property
-        if (!currentObject[key]) {
-          currentObject[key] = {};
-        }
-        currentObject[key].value = step.value;
-        currentObject[key].timestamp = step.timestamp;
-      } else {
-        // Otherwise, create a nested object and move to the next level
-        if (!currentObject[key]) {
-          currentObject[key] = {};
-        }
-        currentObject = currentObject[key];
-      }
-    }
-  });
-  return result;
-};
-
-// ToDO: define more metrics
-// should later be added to taskDefinition.json
-const metricsCalculation = {
-
-  // define the time for each node in s (key = node) [should be specific to difficulty from task - can be statistically calculated from user data]
-  timeForNode: {
-    // unlimited time to create the task
-    0: 9999999999,
-    6: 600,
-    7: 1200,
-  },
-  // define the maximum score for each node (key = node) [should be specific to difficulty from task]
-  totalScore: {
-    0: 5,
-    6: 10,
-    7: 20,
-  },
-};
 /**
  * Recursively extract all timestamps from the given object
  * @param obj - The object to traverse
@@ -94,124 +35,26 @@ const extractTimestamps = (obj: any): number[] => {
   return timestamps;
 };
 
-// ToDo: split to multiple separated functions
 /**
  *
  * @param inputSteps
  */
 const calculateScore = (inputSteps: ISteps[]) => {
-  // Step 1: Parse the inputSteps into a nested object
-  const parsedData = steps2object(inputSteps);
-
-  // Step 2: Calculate the score for each node
-  const nodeScores: Record<string, number> = {};
-  for (const nodeKey in metricsCalculation.totalScore) {
-    const nodeData = parsedData["nodes"][nodeKey];
-    if (nodeData) {
-      const timeForNode = metricsCalculation.timeForNode[nodeKey];
-      const totalScore = metricsCalculation.totalScore[nodeKey];
-      let componentScores: Record<string, number> = {};
-      console.log(nodeData);
-      for (let componentKey in nodeData["components"]) {
-        const componentData = nodeData["components"][componentKey];
-        if (componentData) {
-          // Score for each component is calculated in percent
-          console.log(componentData);
-          // Mapping auf die Aufgabenstellung, bestimmen des Formtypes pro component
-          // "0": {
-          //   "name": "Direktbedarfsmatrix",
-          //     "type": "Matrix",
-          const log = {
-            "component": {
-              "validationData": {
-                "value": [
-                  [],
-                ],
-                "timestamp": 1690551702500,
-              },
-              "userData": {
-                "0": {
-                  "0": {
-                    "value": "0",
-                    "timestamp": 1690551745267,
-                  },
-                  "1": {
-                    "value": "0",
-                    "timestamp": 1690551745806,
-                  },
-                },
-                "value": [
-                  [],
-                ],
-                "timestamp": 1690551748396,
-              },
-            },
-            "isValid": {
-              "value": true,
-              "timestamp": 1690551748400,
-            },
-            "contextMenu": {
-              // Überlegung, die Punkte vor der Methode noch zählen nur alle weiteren nicht mehr?
-              "usedMethods": {
-                "value": [
-                  "showSolution",
-                ],
-                "timestamp": 1690551748395,
-              },
-            },
-          };
-          let componentScore = 1;
-          // TODO
-          // depending on the formType (Where is the formType stored in the replay?)
-          // Calculate the score for each component
-          // ... your scoring logic goes here ...
-
-          componentScores[componentKey] = componentScore;
-        }
-      }
-      let nodeScore = Object.keys(componentScores).map((key) => {
-        return componentScores[key];
-      }).reduce((a: number, b: number) => {
-        return (a + b) / 2;
-      });
-      // calculate the absolute score for each node
-      nodeScore *= totalScore;
-      // consider the time for each node
-      // Get the timestamps for each nodeData object
-      const timestamps = extractTimestamps(nodeData);
-      const time = (Math.max(...timestamps) - Math.min(...timestamps)) / 1000;
-      nodeScore = (time / timeForNode) <= 1 ? nodeScore : nodeScore / (time / timeForNode);
-
-      nodeScores[nodeKey] = {
-        components: componentScores,
-        score: nodeScore,
-      };
-    }
+  const projectId = definition[currentTask]["projectId"];
+  const steps = inputSteps.sort((a, b) => a.timestamp - b.timestamp);
+  for (const step of steps) {
+    const skillId = definition[currentTask]["skillsMapping"][Object.keys(definition[currentTask]["skillsMapping"]).find((key) => step.path.startsWith(key))]["skillId"];
+    console.log(skillId)
+    //   ToDo mapping to TaskDefinition
+    //   Calculation of the score
   }
-
-  // Step 3: Multiply the calculated score by the impact factor of used methods
-  const finalScores: Record<string, number> = {};
-  for (const nodeKey in nodeScores) {
-    const nodeScore = nodeScores[nodeKey];
-    let finalScore = nodeScore;
-
-    // Apply impact factor if available for each component
-    for (const component in Object.keys(parsedData["nodes"][nodeKey]["components"])) {
-      // Apply impact factor if available
-      const impactMethods: string[] = parsedData["nodes"][nodeKey]["components"][component]?.["contextMenu"]?.["usedMethods"];
-      for (const impactMethod in impactMethods) {
-        if (impactMethod && impactMethodsToScore.hasOwnProperty(impactMethod)) {
-          finalScore *= impactMethodsToScore[impactMethod];
-        }
-      }
-      finalScores[nodeKey] = finalScore;
-    }
-  }
-  console.log(finalScores);
-  return finalScores;
+  return null
 };
 
 const relevantSteps: ISteps[] = <IReplay>recording.steps.filter((step: ISteps) => savedPaths.paths.includes(normalizePath(step.path)));
+const currentTask = recording.steps.filter((step: ISteps) => step.path === "currentTask")[0]["value"];
+const taskParameters = recording.steps.filter((step: ISteps) => step.path === "taskParameters")[0]["value"]["parameters"];
+
 const score = ref(0);
 
 </script>

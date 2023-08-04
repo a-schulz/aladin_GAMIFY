@@ -45,9 +45,9 @@ public class ControllerExample {
     SampleDatasetLoader sampleDatasetLoader;
 
     @CrossOrigin()
-    @GetMapping("/users/{user}/token")
-    public String getUserAuthToken(@PathVariable String user) {
-        String clientId = "movies"; // project Id
+    @GetMapping("/users/{user}/{projectId}/token")
+    public String getUserAuthToken(@PathVariable String user, @PathVariable String projectId) {
+        String clientId = projectId; // project Id
         String serviceTokenUrl = skillsConfig.getServiceUrl() + "/oauth/token";
         String clientSecret = secretHelper.getSecret(clientId);
 

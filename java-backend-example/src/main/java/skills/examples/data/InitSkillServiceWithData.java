@@ -1,12 +1,12 @@
 /**
  * Copyright 2020 SkillTree
- *
+ * <p>
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
- *
- *     https://www.apache.org/licenses/LICENSE-2.0
- *
+ * <p>
+ * https://www.apache.org/licenses/LICENSE-2.0
+ * <p>
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
  * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
@@ -62,60 +62,62 @@ public class InitSkillServiceWithData {
     void load() throws Exception {
         log.info("SkillsConfig [" + skillsConfig + "]");
 
-//         if (skillsConfig.getCreateRootAccount()) {
-//             createRootAccount();
-//         } else if (!skillsConfig.isPkiMode()) {
-//             createUser(skillsConfig.getServiceUrl() + "/createAccount");
-//         }
-//
-//         String serviceUrl = skillsConfig.getServiceUrl();
-//         RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
-//
-//         List<Project> projects = sampleDatasetLoader.getProjects();
-//         projectLoop:
-//         for (Project project : projects) {
-//             if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
-//                 log.info("Project [" + project.getName() + "] already exists!");
-//                 break projectLoop;
-//             }
-//             String projectId = project.getId();
-//             post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
-//
-//             log.info("\nStarting to create schema for project [" + projectId + "]\n" +
-//                     "  [" + project.getSubjects().size() + "] subjects\n" +
-//                     "  [" + project.getBadges().size() + "] badges");
-//             String projectUrl = serviceUrl + "/admin/projects/" + projectId;
-//             addSubjects(project, rest, projectUrl);
-//             addBadges(project, rest, projectUrl);
-//
-//             // pin the project on the root user's admin view and enable production mode
-//             if (skillsConfig.getCreateRootAccount()) {
-//                 post(rest, serviceUrl + "/root/pin/" + projectId);
-//             }
-//             post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
-//             post(rest, serviceUrl + "/api/myprojects/" + projectId);
-//             achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
-//             reportSkills(rest, project);
-//             approveAndRejectSomePendingApprovals(project, rest);
-//
-//             log.info("Project [" + projectId + "] was created!");
-//         }
-//
-//         assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
-//         assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
-//         assignDependency(rest, "movies", "DespicableMeCollection", "TheTwilightCollection");
-//         assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList(
-//                 "HarryPotterandthePhilosophersStone",
-//                 "HarryPotterandtheChamberofSecrets",
-//                 "HarryPotterandthePrisonerofAzkaban",
-//                 "HarryPotterandtheGobletofFire",
-//                 "HarryPotterandtheOrderofthePhoenix"))
-//         );
-//         if (skillsConfig.getCreateRootAccount()) {
-//             addGlobalBadge(rest, serviceUrl, 2);
-//         }
-//
-//         createQuizzesAndSurveys(rest);
+        if (skillsConfig.getCreateRootAccount()) {
+            createRootAccount();
+        } else if (!skillsConfig.isPkiMode()) {
+            createUser(skillsConfig.getServiceUrl() + "/createAccount");
+        }
+
+        if (skillsConfig.getDataImportEnabled()) {
+            String serviceUrl = skillsConfig.getServiceUrl();
+            RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
+
+            List<Project> projects = sampleDatasetLoader.getProjects();
+            projectLoop:
+            for (Project project : projects) {
+                if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
+                    log.info("Project [" + project.getName() + "] already exists!");
+                    break projectLoop;
+                }
+                String projectId = project.getId();
+                post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
+
+                log.info("\nStarting to create schema for project [" + projectId + "]\n" +
+                        "  [" + project.getSubjects().size() + "] subjects\n" +
+                        "  [" + project.getBadges().size() + "] badges");
+                String projectUrl = serviceUrl + "/admin/projects/" + projectId;
+                addSubjects(project, rest, projectUrl);
+                addBadges(project, rest, projectUrl);
+
+                // pin the project on the root user's admin view and enable production mode
+                if (skillsConfig.getCreateRootAccount()) {
+                    post(rest, serviceUrl + "/root/pin/" + projectId);
+                }
+                post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
+                post(rest, serviceUrl + "/api/myprojects/" + projectId);
+                achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
+                reportSkills(rest, project);
+                approveAndRejectSomePendingApprovals(project, rest);
+
+                log.info("Project [" + projectId + "] was created!");
+            }
+
+            assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
+            assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
+            assignDependency(rest, "movies", "DespicableMeCollection", "TheTwilightCollection");
+            assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList(
+                    "HarryPotterandthePhilosophersStone",
+                    "HarryPotterandtheChamberofSecrets",
+                    "HarryPotterandthePrisonerofAzkaban",
+                    "HarryPotterandtheGobletofFire",
+                    "HarryPotterandtheOrderofthePhoenix"))
+            );
+            if (skillsConfig.getCreateRootAccount()) {
+                addGlobalBadge(rest, serviceUrl, 2);
+            }
+
+            createQuizzesAndSurveys(rest);
+        }
     }
 
     private void createQuizzesAndSurveys(RestTemplate rest) {
@@ -163,6 +165,7 @@ public class InitSkillServiceWithData {
         post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
         post(rest, serviceUrl + "/api/myprojects/" + projectId);
     }
+
     private void createQuizBasedSkill(RestTemplate rest, String subjectUrl, String quizName, String quizId) {
         String skillId = quizId + "Skill";
         SkillRequest skillRequest = new SkillRequest();
@@ -191,7 +194,7 @@ public class InitSkillServiceWithData {
                 questionDefRequest.setQuestionType(q.getType());
                 List<QuizAnswerDefRequest> answers = new ArrayList<>();
                 if (q.getAnswers() != null && q.getAnswers().size() > 0) {
-                    for (String a : q.getAnswers()){
+                    for (String a : q.getAnswers()) {
                         answers.add(new QuizAnswerDefRequest(setDescPrefix(a), false));
                     }
                 }
@@ -204,7 +207,7 @@ public class InitSkillServiceWithData {
         return surveyIds;
     }
 
-    private  List<String> loadQuizzes(RestTemplate rest) {
+    private List<String> loadQuizzes(RestTemplate rest) {
         List<String> quizIds = new ArrayList<>();
         String serviceUrl = skillsConfig.getServiceUrl();
 
@@ -219,7 +222,7 @@ public class InitSkillServiceWithData {
                 questionDefRequest.setQuestion(setDescPrefix(q.getQuestion()));
                 questionDefRequest.setQuestionType("SingleChoice");
                 List<QuizAnswerDefRequest> answers = new ArrayList<>();
-                for (Answer a : q.getAnswers()){
+                for (Answer a : q.getAnswers()) {
                     answers.add(new QuizAnswerDefRequest(setDescPrefix(a.getText()), a.isCorrect()));
                 }
                 questionDefRequest.setAnswers(answers);
@@ -235,9 +238,16 @@ public class InitSkillServiceWithData {
     @JsonIgnoreProperties(ignoreUnknown = true)
     static class QuizAttemptStartResult {
         private Integer id;
-        public Integer getId() { return id;}
-        public void setId(Integer id) { this.id = id; }
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
     }
+
     static class QuizReportAnswerReq {
         private Boolean isSelected = true;
         private String answerText;
@@ -249,10 +259,21 @@ public class InitSkillServiceWithData {
             this.answerText = answerText;
         }
 
-        public Boolean getSelected() { return isSelected; }
-        public void setSelected(Boolean selected) { isSelected = selected; }
-        public String getAnswerText() { return answerText; }
-        public void setAnswerText(String answerText) { this.answerText = answerText; }
+        public Boolean getSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(Boolean selected) {
+            isSelected = selected;
+        }
+
+        public String getAnswerText() {
+            return answerText;
+        }
+
+        public void setAnswerText(String answerText) {
+            this.answerText = answerText;
+        }
     }
 
     private void completeSurvey(RestTemplate adminUserRest, String userId, String surveyId) {
@@ -273,6 +294,7 @@ public class InitSkillServiceWithData {
 
         post(thisUserRest, skillsConfig.getServiceUrl() + "/api/quizzes/" + surveyId + "/attempt/" + quizAttemptStartResult.getId() + "/complete");
     }
+
     private void achieveQuizForUser(RestTemplate adminUserRest, String userId, String quizId, boolean pass) {
         createUser(skillsConfig.getServiceUrl() + "/createAccount", userId);
         RestTemplate thisUserRest = restTemplateFactory.getTemplateWithAuth(userId);
@@ -309,6 +331,7 @@ public class InitSkillServiceWithData {
             throw new RuntimeException(e);
         }
     }
+
     private void approveAndRejectSomePendingApprovals(Project project, RestTemplate rest) {
         PendingApprovalsResponse pendingApprovalsResponse = getPendingApprovals(project, rest);
         // approve/reject 1/2 of the pending self report approval request

@@ -1,8 +1,0 @@
-{
-  "paths": [
-    "nodes__components__isValid",
-    "nodes__components__component__validationData",
-    "nodes__components__component__userData",
-    "nodes__components__contextMenu__usedMethods"
-  ]
-}

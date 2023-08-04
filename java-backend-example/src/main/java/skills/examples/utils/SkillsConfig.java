@@ -34,7 +34,8 @@ public class SkillsConfig {
     String password;
     @JsonIgnore
     String authMode = "token";
-    Boolean createRootAccount = true;
+    Boolean createRootAccount = false;
+    Boolean dataImportEnabled = false;
     Integer numEvents = 2500;
     Integer numUsers = 34;
     Integer numDays = 365;
@@ -48,6 +49,7 @@ public class SkillsConfig {
     public String getPassword() { return password; }
     public String getAuthMode() { return authMode; }
     public Boolean getCreateRootAccount() { return createRootAccount; }
+    public Boolean getDataImportEnabled() { return dataImportEnabled; }
     public Boolean isPkiMode() {
         return authMode.equalsIgnoreCase("pki");
     }

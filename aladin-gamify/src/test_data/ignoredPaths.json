@@ -9,6 +9,12 @@
     "nodes__interjections__applied",
     "nodes__modals__active",
     "previousNode",
-    "currentNode"
+    "currentNode",
+    "zoomScale",
+    "previousNode",
+    "nodes__components__contextMenu__isOpen",
+    "nodes__layouts",
+    "nodes__components0__contextMenu__isOpen",
+    "nodes__layouts__lg"
   ]
 }
