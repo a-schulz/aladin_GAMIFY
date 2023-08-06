@@ -8,17 +8,17 @@ services:
     ports:
       - "8080:8080"
     environment:
-      - SPRING_PROPS=spring.datasource.url=jdbc:postgresql://postgres_gamify:5432/skills,
-        spring.datasource.username=skills,
-        spring.datasource.password=skillsPassword
+      - SPRING_PROPS=spring.datasource.url=jdbc:postgresql://${POSTGRES_HOST}:5432/${POSTGRES_DB},
+        spring.datasource.username=${POSTGRES_USER},
+        spring.datasource.password=${POSTGRES_PASSWORD},
       - _JAVA_OPTIONS=-Ddebug=debug
   postgres_gamify:
-    image: postgres:latest
+    image: postgres:14
     container_name: postgres_gamify
     environment:
-      POSTGRES_USER: "skills"
-      POSTGRES_PASSWORD: "skillsPassword"
-      POSTGRES_DB: skills
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
     ports:
       - "5432:5432"
   gamify_authentication:
@@ -27,6 +27,11 @@ services:
       context: java-backend-example
     ports:
       - "8090:8090"
+    environment:
+      AUTHENTICATION_PORT: ${AUTHENTICATION_PORT}
+      SERVICE_URL: ${SERVICE_URL}
+      ROOT_USER_USERNAME: ${ROOT_USER_USERNAME}
+      ROOT_USER_PASSWORD: ${ROOT_USER_PASSWORD}
     depends_on:
     - gamify
     volumes:
