@@ -19,3 +19,7 @@ authentication als separaten docker container
 test vue component in ts
 
 client library is made for "vue": "2.6.12"
+
+
+http://localhost:8080/app/projects
+https://github.com/NationalSecurityAgency/skills-service/blob/master/dashboard/src/components/skills/SkillsService.js
