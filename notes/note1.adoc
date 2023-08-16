@@ -23,3 +23,5 @@ client library is made for "vue": "2.6.12"
 
 http://localhost:8080/app/projects
 https://github.com/NationalSecurityAgency/skills-service/blob/master/dashboard/src/components/skills/SkillsService.js
+
+HTML Display ist immer nur pro Projekt es ist dann also nicht mehr möglich die Punkte von mehreren Projekten zusammen zu sehen
