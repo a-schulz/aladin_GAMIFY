@@ -11,7 +11,7 @@ import "./scss/styles.scss";
 // Import all of Bootstrap's JS
 import * as bootstrap from "bootstrap";
 
-const projectId = "BIS";
+const projectId = "aladin";
 
 SkillsConfiguration.configure({
     serviceUrl: import.meta.env.VITE_API_URL,

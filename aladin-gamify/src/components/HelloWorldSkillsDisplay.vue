@@ -46,11 +46,14 @@ const projectId = ref("");
 
 const changeProject = () => {
   console.log(projectId.value)
-  // SkillsConfiguration.configure({
-  //   serviceUrl: import.meta.env.VITE_API_URL,
-  //   projectId: projectId.value,
-  //   authenticator: import.meta.env.VITE_AUTHENTICATION_URL + "/api/users/bill@email.org/" + projectId.value + "/token",
-  // });
+  SkillsConfiguration.configure({
+    serviceUrl: import.meta.env.VITE_API_URL,
+    projectId: projectId.value,
+    authenticator: import.meta.env.VITE_AUTHENTICATION_URL + "/api/users/bill@email.org/" + projectId.value + "/token",
+  });
+  // remount the skills display
+  const clientDisplay = new SkillsDisplayJS();
+  clientDisplay.attachTo(document.querySelector("#skills-client-container"));
 };
 
 const reportSkill = () => {
