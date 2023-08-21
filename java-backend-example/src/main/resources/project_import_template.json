@@ -1,0 +1,33 @@
+[
+  {
+    "id": "",
+    "subjects": [
+      {
+        "id": "",
+        "name": "",
+        "iconClass": "",
+        "skills": [
+          {
+            "id": "",
+            "name": "",
+            "description": "",
+            "helpUrl": ""
+          }
+        ]
+      }
+    ],
+    "badges": [
+      {
+        "id": "",
+        "name": "",
+        "iconClass": "",
+        "shouldAdminAchieve": false,
+        "skillIds": [
+          ""
+        ],
+        "description": ""
+      }
+    ],
+    "name": ""
+  }
+]

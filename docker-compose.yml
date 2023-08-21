@@ -33,6 +33,7 @@ services:
       ROOT_USER_USERNAME: ${ROOT_USER_USERNAME}
       ROOT_USER_PASSWORD: ${ROOT_USER_PASSWORD}
     depends_on:
-    - gamify
+      - gamify
+    restart: on-failure
     volumes:
       - ./java-backend-example/src:/usr/src/myapp/src
