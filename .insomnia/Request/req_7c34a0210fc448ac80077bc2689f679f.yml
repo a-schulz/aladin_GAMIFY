@@ -1,22 +1,20 @@
-_id: req_28c9e018888d486896b024979e694156
+_id: req_7c34a0210fc448ac80077bc2689f679f
 type: Request
 parentId: wrk_6822987d50804d319e9bb78779c98d8c
-modified: 1692724324386
-created: 1692683225828
-url: http://localhost:8080/admin/projects/aladin/subjects/wirtschaftsinformatik/skills/betrieblicheinformationssysteme
-name: Crete Group
+modified: 1692725000125
+created: 1692724347315
+url: http://localhost:8080/admin/projects/aladin/subjects/wirtschaftsinformatik/groups/betrieblicheinformationssysteme/skills/solvegozintograph
+name: Crete Skill inside Group
 description: ""
 method: POST
 body:
   mimeType: application/json
   text: |-
     {
-    	"name":"Betrieblicheinformationssysteme",
+    	"name":"Lösen eines Gozintographen",
     	"description": "",
-    	"skillId": "betrieblicheinformationssysteme",
-    	"subjectId": "wirtschaftsinformatik",
-    	"type": "SkillsGroup",
-    	"numSkillsRequired": "-1"
+    	"pointIncrement": 20,
+    	"numPerformToCompletion":10
     }
 parameters: []
 headers:
@@ -25,7 +23,7 @@ headers:
   - name: User-Agent
     value: Insomnia/2023.5.5
 authentication: {}
-metaSortKey: -1692681565434.5
+metaSortKey: -1692681565384.5
 isPrivate: false
 settingStoreCookies: true
 settingSendCookies: true
