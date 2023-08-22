@@ -6,9 +6,23 @@
         "id": "WirtschaftsinformatikSubject",
         "name": "Wirtschaftsinformatik",
         "iconClass": "",
+        "groups": [
+          {
+            "id": "",
+            "name": "",
+            "description": ""
+          }
+        ],
         "skills": [
           {
             "id": "",
+            "name": "",
+            "description": "",
+            "helpUrl": ""
+          },
+          {
+            "id": "",
+            "groupId": "",
             "name": "",
             "description": "",
             "helpUrl": ""
