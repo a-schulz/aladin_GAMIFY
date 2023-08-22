@@ -1,0 +1,30 @@
+_id: req_11eee4ff467d4e7ab92298319f0c9ec5
+type: Request
+parentId: wrk_6822987d50804d319e9bb78779c98d8c
+modified: 1692682393747
+created: 1692681565497
+url: http://localhost:8080/app/projects/aladin
+name: Create Project
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name":"ALADIN"
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.5
+authentication: {}
+metaSortKey: -1692681565497
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global
