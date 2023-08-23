@@ -45,18 +45,15 @@ import java.util.stream.Collectors;
 @Component
 public class InitSkillServiceWithData {
 
+    private static final Logger log = LoggerFactory.getLogger(InitSkillServiceWithData.class);
+    private static final Pattern PREFIX_PATTERN = Pattern.compile("(?m)(^\\S.+$)");
     @Autowired
     private SkillsConfig skillsConfig;
-
     @Autowired
     private RestTemplateFactory restTemplateFactory;
-
     @Autowired
     private SampleDatasetLoader sampleDatasetLoader;
-
-    private ObjectMapper jsonMapper = new ObjectMapper();
-
-    private static final Logger log = LoggerFactory.getLogger(InitSkillServiceWithData.class);
+    private final ObjectMapper jsonMapper = new ObjectMapper();
 
     @PostConstruct
     void load() throws Exception {
@@ -77,14 +74,12 @@ public class InitSkillServiceWithData {
             for (Project project : projects) {
                 if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
                     log.info("Project [" + project.getName() + "] already exists!");
-                    break projectLoop;
+                    break;
                 }
                 String projectId = project.getId();
                 post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
 
-                log.info("\nStarting to create schema for project [" + projectId + "]\n" +
-                        "  [" + project.getSubjects().size() + "] subjects\n" +
-                        "  [" + project.getBadges().size() + "] badges");
+                log.info("\nStarting to create schema for project [" + projectId + "]\n" + "  [" + project.getSubjects().size() + "] subjects\n" + "  [" + project.getBadges().size() + "] badges");
                 String projectUrl = serviceUrl + "/admin/projects/" + projectId;
                 addSubjects(project, rest, projectUrl);
                 addBadges(project, rest, projectUrl);
@@ -102,22 +97,18 @@ public class InitSkillServiceWithData {
                 log.info("Project [" + projectId + "] was created!");
             }
 
-            assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
-            assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
-            assignDependency(rest, "movies", "DespicableMeCollection", "TheTwilightCollection");
-            assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList(
-                    "HarryPotterandthePhilosophersStone",
-                    "HarryPotterandtheChamberofSecrets",
-                    "HarryPotterandthePrisonerofAzkaban",
-                    "HarryPotterandtheGobletofFire",
-                    "HarryPotterandtheOrderofthePhoenix"))
-            );
-            if (skillsConfig.getCreateRootAccount()) {
-                addGlobalBadge(rest, serviceUrl, 2);
-            }
+//            assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
+//            assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
+//            assignDependency(rest, "movies", "DespicableMeCollection", "TheTwilightCollection");
+//            assignSeriesDependencies(rest, "movies", new ArrayList<>(Arrays.asList("HarryPotterandthePhilosophersStone", "HarryPotterandtheChamberofSecrets", "HarryPotterandthePrisonerofAzkaban", "HarryPotterandtheGobletofFire", "HarryPotterandtheOrderofthePhoenix")));
+//            if (skillsConfig.getCreateRootAccount()) {
+//                addGlobalBadge(rest, serviceUrl, 2);
+//            }
 
-            createQuizzesAndSurveys(rest);
+//            createQuizzesAndSurveys(rest);
         }
+        log.info("Done loading data. Exiting.");
+        System.exit(0);
     }
 
     private void createQuizzesAndSurveys(RestTemplate rest) {
@@ -235,53 +226,11 @@ public class InitSkillServiceWithData {
         return quizIds;
     }
 
-    @JsonIgnoreProperties(ignoreUnknown = true)
-    static class QuizAttemptStartResult {
-        private Integer id;
-
-        public Integer getId() {
-            return id;
-        }
-
-        public void setId(Integer id) {
-            this.id = id;
-        }
-    }
-
-    static class QuizReportAnswerReq {
-        private Boolean isSelected = true;
-        private String answerText;
-
-        public QuizReportAnswerReq() {
-        }
-
-        public QuizReportAnswerReq(String answerText) {
-            this.answerText = answerText;
-        }
-
-        public Boolean getSelected() {
-            return isSelected;
-        }
-
-        public void setSelected(Boolean selected) {
-            isSelected = selected;
-        }
-
-        public String getAnswerText() {
-            return answerText;
-        }
-
-        public void setAnswerText(String answerText) {
-            this.answerText = answerText;
-        }
-    }
-
     private void completeSurvey(RestTemplate adminUserRest, String userId, String surveyId) {
         createUser(skillsConfig.getServiceUrl() + "/createAccount", userId);
         RestTemplate thisUserRest = restTemplateFactory.getTemplateWithAuth(userId);
 
-        QuizInfoResponse quizInfoResponse = get(adminUserRest,
-                skillsConfig.getServiceUrl() + "/admin/quiz-definitions/" + surveyId + "/questions", QuizInfoResponse.class);
+        QuizInfoResponse quizInfoResponse = get(adminUserRest, skillsConfig.getServiceUrl() + "/admin/quiz-definitions/" + surveyId + "/questions", QuizInfoResponse.class);
 
         String res = post(thisUserRest, skillsConfig.getServiceUrl() + "/api/quizzes/" + surveyId + "/attempt");
         QuizAttemptStartResult quizAttemptStartResult = parseStrRes(res, QuizAttemptStartResult.class);
@@ -299,8 +248,7 @@ public class InitSkillServiceWithData {
         createUser(skillsConfig.getServiceUrl() + "/createAccount", userId);
         RestTemplate thisUserRest = restTemplateFactory.getTemplateWithAuth(userId);
 
-        QuizInfoResponse quizInfoResponse = get(adminUserRest,
-                skillsConfig.getServiceUrl() + "/admin/quiz-definitions/" + quizId + "/questions", QuizInfoResponse.class);
+        QuizInfoResponse quizInfoResponse = get(adminUserRest, skillsConfig.getServiceUrl() + "/admin/quiz-definitions/" + quizId + "/questions", QuizInfoResponse.class);
 
         String res = post(thisUserRest, skillsConfig.getServiceUrl() + "/api/quizzes/" + quizId + "/attempt");
         QuizAttemptStartResult quizAttemptStartResult = parseStrRes(res, QuizAttemptStartResult.class);
@@ -309,14 +257,12 @@ public class InitSkillServiceWithData {
             index++;
             boolean failIfPassNotTrue = index % 2 == 0;
             if (pass || !failIfPassNotTrue) {
-                List<QuizAnswerOptionsInfoResponse> correctAnswers = question.getAnswers()
-                        .stream().filter(answer -> answer.getIsCorrect()).collect(Collectors.toList());
+                List<QuizAnswerOptionsInfoResponse> correctAnswers = question.getAnswers().stream().filter(answer -> answer.getIsCorrect()).collect(Collectors.toList());
                 for (QuizAnswerOptionsInfoResponse correctAnswer : correctAnswers) {
                     post(thisUserRest, skillsConfig.getServiceUrl() + "/api/quizzes/" + quizId + "/attempt/" + quizAttemptStartResult.getId() + "/answers/" + correctAnswer.getId(), new QuizReportAnswerReq());
                 }
             } else {
-                List<QuizAnswerOptionsInfoResponse> wrongAnswers = question.getAnswers()
-                        .stream().filter(answer -> !answer.getIsCorrect()).collect(Collectors.toList());
+                List<QuizAnswerOptionsInfoResponse> wrongAnswers = question.getAnswers().stream().filter(answer -> !answer.getIsCorrect()).collect(Collectors.toList());
                 post(thisUserRest, skillsConfig.getServiceUrl() + "/api/quizzes/" + quizId + "/attempt/" + quizAttemptStartResult.getId() + "/answers/" + wrongAnswers.get(0).getId(), new QuizReportAnswerReq());
             }
         }
@@ -383,34 +329,24 @@ public class InitSkillServiceWithData {
             log.info("\nCreating [" + subject.getName() + "] subject with [" + subject.getSkills().size() + "] skills");
             String subjectUrl = projectUrl + "/subjects/" + subject.getId();
             post(rest, subjectUrl, new SubjRequest(subject.getName(), "", subject.getIconClass()));
+//            Todo: change no separate request types defaults should be set in base classes
+            List<Group> groups = subject.getGroups();
+            for (Group group : groups) {
+                String groupUrl = subjectUrl + "/skills/" + group.getId();
+                GroupRequest groupRequest = new GroupRequest();
+                groupRequest.setName(group.getName());
+                groupRequest.setDescription(setDescPrefix(group.getDescription()));
+                groupRequest.setSkillId(group.getId());
+                groupRequest.setSubjectId(subject.getId());
+                post(rest, groupUrl, groupRequest);
+            }
 
-            List<String> groupNames = Arrays.asList("Harry Potter", "Cars", "Guardians of the Galaxy", "Thor", "The Hangover", "Iron Man", "Terminator", "The Hunger Games", "X-Men");
-            Map<String, GroupRequest> groupRequestMap = new HashMap<>();
             List<Skill> skills = subject.getSkills();
-            GroupRequest groupRequest = null;
-            for (int i = 0; i < skills.size(); i++) {
-                Skill skill = skills.get(i);
-
-                String skillName = skill.getName();
+            for (Skill skill : skills) {
                 String skillUrl = subjectUrl + "/skills/" + skill.getId();
-
-                List<String> foundGroupNames = groupNames.stream().filter(gName -> skillName.startsWith(gName)).collect(Collectors.toList());
-                String groupName = foundGroupNames != null && foundGroupNames.size() > 0 ? foundGroupNames.get(0) : null;
-                if (groupName != null) {
-                    groupRequest = new GroupRequest();
-                    groupRequest.setSkillId(groupName.replaceAll(" ", "").replaceAll("-", "") + "GroupId");
-                    groupRequest.setName(groupName);
-                    groupRequest.setSubjectId(subject.getId());
-                    groupRequest.setDescription(setDescPrefix(groupName + "Movies"));
-                    String groupUrl = subjectUrl + "/skills/" + groupRequest.getSkillId();
-
-                    if (!groupRequestMap.containsKey(groupName)) {
-                        post(rest, groupUrl, groupRequest);
-                        groupRequestMap.put(groupName, groupRequest);
-                    }
-                    skillUrl = subjectUrl + "/groups/" + groupRequest.getSkillId() + "/skills/" + skill.getId();
+                if (skill.getGroupId() != null) {
+                    skillUrl = subjectUrl + "/groups/" + skill.getGroupId() + "/skills/" + skill.getId();
                 }
-
                 SkillRequest skillRequest = new SkillRequest();
                 skillRequest.setName(skill.getName());
                 skillRequest.setDescription(setDescPrefix(skill.getDescription()));
@@ -418,23 +354,9 @@ public class InitSkillServiceWithData {
                 if (skill.isSelfReporting()) {
                     skillRequest.setSelfReportingType(skill.getSelfReportingType());
                 }
-                if (groupName != null || i % 3 == 0) {
-                    skillRequest.setNumPerformToCompletion(3);
-                } else if (i % 2 == 0) {
-                    skillRequest.setNumPerformToCompletion(2);
-                }
+                skillRequest.setNumPerformToCompletion(2);
                 post(rest, skillUrl, skillRequest);
             }
-
-            for (GroupRequest gR : groupRequestMap.values()) {
-                gR.setEnabled("true");
-                if (gR.getName().startsWith("Harry Potter")) {
-                    gR.setNumSkillsRequired(4);
-                }
-                String groupUrl = subjectUrl + "/skills/" + gR.getSkillId();
-                post(rest, groupUrl, gR);
-            }
-
             log.info("\nCompleted [" + subject.getName() + "] subject");
         }
     }
@@ -550,9 +472,7 @@ public class InitSkillServiceWithData {
         userIds.addAll(skillsConfig.getAdditionalRootUsers());
         List<String> highOutliers = Arrays.asList(userIds.get(random.nextInt(3)), userIds.get(random.nextInt(3)), userIds.get(random.nextInt(3)));
         List<String> lowOutliers = Arrays.asList(userIds.remove(random.nextInt(2)), userIds.remove(random.nextInt(2)));
-        log.info("\nReporting skills for [" + numUsers + "] users\n" +
-                "   number of events to send = [" + numEvents + "]\n" +
-                "   May take a minute or so.... Please hold!");
+        log.info("\nReporting skills for [" + numUsers + "] users\n" + "   number of events to send = [" + numEvents + "]\n" + "   May take a minute or so.... Please hold!");
         for (int i = 0; i < numEvents; i++) {
             String userId = userIds.get(random.nextInt(userIds.size()));
             if (i % 200 == 0) {
@@ -584,8 +504,6 @@ public class InitSkillServiceWithData {
         }
     }
 
-    private static final Pattern PREFIX_PATTERN = Pattern.compile("(?m)(^\\S.+$)");
-
     private String setDescPrefix(String description) {
         if (StringUtils.hasText(skillsConfig.getDescPrefix())) {
             return PREFIX_PATTERN.matcher(description).replaceAll(skillsConfig.getDescPrefix() + " $1");
@@ -596,12 +514,12 @@ public class InitSkillServiceWithData {
 
     private Long getRandomTimestamp(Integer numDays, Random random) {
         int daysAgo = random.nextInt(numDays);
-        long days = (long) daysAgo * 1000l * 60l * 60l * 24l;
+        long days = (long) daysAgo * 1000L * 60L * 60L * 24L;
         return System.currentTimeMillis() - days;
     }
 
     private Long getTimestamp(Integer numMinutesAgo) {
-        long minutes = (long) numMinutesAgo * 1000l * 60l;
+        long minutes = (long) numMinutesAgo * 1000L * 60L;
         return System.currentTimeMillis() - minutes;
     }
 
@@ -708,5 +626,46 @@ public class InitSkillServiceWithData {
         }
 
         return dn;
+    }
+
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    static class QuizAttemptStartResult {
+        private Integer id;
+
+        public Integer getId() {
+            return id;
+        }
+
+        public void setId(Integer id) {
+            this.id = id;
+        }
+    }
+
+    static class QuizReportAnswerReq {
+        private Boolean isSelected = true;
+        private String answerText;
+
+        public QuizReportAnswerReq() {
+        }
+
+        public QuizReportAnswerReq(String answerText) {
+            this.answerText = answerText;
+        }
+
+        public Boolean getSelected() {
+            return isSelected;
+        }
+
+        public void setSelected(Boolean selected) {
+            isSelected = selected;
+        }
+
+        public String getAnswerText() {
+            return answerText;
+        }
+
+        public void setAnswerText(String answerText) {
+            this.answerText = answerText;
+        }
     }
 }

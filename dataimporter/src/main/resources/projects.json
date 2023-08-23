@@ -1,6 +1,6 @@
 [
   {
-    "id": "aladin",
+    "id": "ALADIN",
     "subjects": [
       {
         "id": "WirtschaftsinformatikSubject",
@@ -8,35 +8,59 @@
         "iconClass": "",
         "groups": [
           {
-            "id": "",
-            "name": "",
+            "id": "BetrieblicheInformationssystemeGroup",
+            "name": "Betriebliche Informationssysteme",
+            "description": ""
+          },
+          {
+            "id": "GrundlagenderInformatikGroup",
+            "name": "Grundlangen der Informatik",
+            "description": ""
+          },
+          {
+            "id": "WirtschaftsmathematikGroup",
+            "name": "Wirtschaftsmathematik",
             "description": ""
           }
         ],
         "skills": [
           {
-            "id": "",
-            "name": "",
+            "id": "MatrixMultiplikationSkill",
+            "name": "Matrixmultiplikation",
             "description": "",
             "helpUrl": ""
           },
           {
-            "id": "",
-            "groupId": "",
-            "name": "",
+            "id": "AdjazenzmatrixAblesenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Adjazenzmatrix ablesen",
+            "description": "",
+            "helpUrl": ""
+          },
+          {
+            "id": "DirektbedarfsmatrixBestimmenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Direktbedarfsmatrix bestimmen",
+            "description": "",
+            "helpUrl": ""
+          },
+          {
+            "id": "SekundaerbedarfsmatrixBestimmenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Sekundärbedarfsmatrix bestimmen",
             "description": "",
             "helpUrl": ""
           }
         ]
       },
       {
-        "id": "bergreifendSubject",
+        "id": "UebergreifendSubject",
         "name": "Übergreifend",
         "iconClass": "",
         "skills": [
           {
-            "id": "",
-            "name": "",
+            "id": "AufgabeParametrisierenSkill",
+            "name": "Aufgabe parametrisieren",
             "description": "",
             "helpUrl": ""
           }

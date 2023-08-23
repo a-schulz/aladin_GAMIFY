@@ -17,6 +17,16 @@ package skills.examples.data.model;
 
 public class Skill {
     private String id;
+    private String groupId;
+
+    public String getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(String groupId) {
+        this.groupId = groupId;
+    }
+
     private String name;
     private String description;
     // optional - valid values are "Approval" or "HonorSystem"
