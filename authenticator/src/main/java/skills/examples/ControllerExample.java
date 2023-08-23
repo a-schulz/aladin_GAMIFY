@@ -25,7 +25,6 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import skills.examples.data.SampleDatasetLoader;
 import skills.examples.utils.SecretHelper;
 import skills.examples.utils.SkillsConfig;
 
@@ -40,9 +39,6 @@ public class ControllerExample {
 
     @Autowired
     SecretHelper secretHelper;
-
-    @Autowired
-    SampleDatasetLoader sampleDatasetLoader;
 
     @CrossOrigin()
     @GetMapping("/users/{user}/{projectId}/token")
