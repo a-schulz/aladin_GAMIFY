@@ -1,0 +1,32 @@
+_id: req_568657f124cb40e2983263aa76a21ec5
+type: Request
+parentId: wrk_6822987d50804d319e9bb78779c98d8c
+modified: 1692683178750
+created: 1692682404281
+url: http://localhost:8080/admin/projects/aladin/subjects/wirtschaftsinformatik
+name: Crete Subject
+description: ""
+method: POST
+body:
+  mimeType: application/json
+  text: |-
+    {
+    	"name":"Wirtschaftsinformatik",
+    	"description": "",
+    	"iconClass":""
+    }
+parameters: []
+headers:
+  - name: Content-Type
+    value: application/json
+  - name: User-Agent
+    value: Insomnia/2023.5.5
+authentication: {}
+metaSortKey: -1692681565447
+isPrivate: false
+settingStoreCookies: true
+settingSendCookies: true
+settingDisableRenderRequestBody: false
+settingEncodeUrl: true
+settingRebuildPath: true
+settingFollowRedirects: global

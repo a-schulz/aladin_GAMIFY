@@ -9,9 +9,9 @@
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
     <groupId>skill-tree</groupId>
-    <artifactId>java-backend-example</artifactId>
+    <artifactId>authenticator</artifactId>
     <version>1.5.1-SNAPSHOT</version>
-    <name>java-backend-example</name>
+    <name>skilltree-authenticator</name>
     <description>SkillTree Backend example using Spring Boot</description>
 
     <properties>
