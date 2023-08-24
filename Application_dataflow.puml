@@ -1,0 +1,27 @@
+@startuml
+
+skinparam monochrome true
+
+title Kommunikation und Schnittstellen
+rectangle "Learning Platform" {
+  file "Task Definition" as TD #white
+  collections "Replay" as RP #white
+}
+
+file "Gamification Definition" as GD #white
+
+rectangle "Skill Tree Platform" {
+  [Projects]
+  [Subjects]
+  [Groups]
+  [Skills]
+}
+TD ..> RP : generates
+RP -right(0- GD : maps
+GD -right0)- [Skills]: to
+
+[Projects] *-- [Subjects]
+[Subjects] *-- [Groups]
+[Groups] *-- [Skills]
+
+@enduml

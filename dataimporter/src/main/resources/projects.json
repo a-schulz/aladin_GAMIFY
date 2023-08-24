@@ -31,7 +31,8 @@
             "helpUrl": "",
             "pointIncrement": 1,
             "numPerformToCompletion": 100,
-            "pointIncrementInterval": 770
+            "pointIncrementInterval": 770,
+            "numMaxOccurrencesIncrementInterval": 2
           },
           {
             "id": "AdjazenzmatrixAblesenSkill",
@@ -41,16 +42,23 @@
             "helpUrl": ""
           },
           {
-            "id": "DirektbedarfsmatrixBestimmenSkill",
+            "id": "DirektbedarfsmatrixMultiplizierenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
-            "name": "Direktbedarfsmatrix bestimmen",
+            "name": "Direktbedarfsmatrix multiplizieren",
             "description": "",
             "helpUrl": ""
           },
           {
-            "id": "SekundaerbedarfsmatrixBestimmenSkill",
+            "id": "GesamtbedarfsmatrixBestimmenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
-            "name": "Sekundärbedarfsmatrix bestimmen",
+            "name": "Gesamtbedarfsmatrix bestimmen",
+            "description": "",
+            "helpUrl": ""
+          },
+          {
+            "id": "SekundaerbedarfsvektorBestimmenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Sekundärbedarfsvektor bestimmen",
             "description": "",
             "helpUrl": ""
           }
@@ -69,6 +77,16 @@
             "pointIncrement": 1,
             "numPerformToCompletion": 100,
             "pointIncrementInterval": 770
+          },
+          {
+            "id": "AufdemWegzumGenieSkill",
+            "name": "Auf dem Weg zum Genie",
+            "description": "Löse Aufgaben ohne Lösungshilfen zu verwenden",
+            "helpUrl": "",
+            "pointIncrement": 10,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 120,
+            "numMaxOccurrencesIncrementInterval": 2
           }
         ]
       },
