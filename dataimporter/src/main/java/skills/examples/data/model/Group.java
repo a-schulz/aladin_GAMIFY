@@ -20,7 +20,7 @@ public class Group {
     private String name;
     private String description;
     private String type = "SkillsGroup";
-    private String enabled = "false";
+    private String enabled = "true";
     private Integer numSkillsRequired = -1;
 
     public String getType() {
