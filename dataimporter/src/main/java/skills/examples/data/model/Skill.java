@@ -43,7 +43,43 @@ public class Skill {
     public Boolean isSelfReporting() {
         return selfReportingType != null && (selfReportingType.equals("Approval") || selfReportingType.equals("HonorSystem"));
     }
+    private Integer pointIncrement = 20;
+    private Integer numPerformToCompletion = 1;
+    private Integer pointIncrementInterval = 12;
 
+    public Integer getPointIncrement() {
+        return pointIncrement;
+    }
+
+    public void setPointIncrement(Integer pointIncrement) {
+        this.pointIncrement = pointIncrement;
+    }
+
+    public Integer getNumPerformToCompletion() {
+        return numPerformToCompletion;
+    }
+
+    public void setNumPerformToCompletion(Integer numPerformToCompletion) {
+        this.numPerformToCompletion = numPerformToCompletion;
+    }
+
+    public Integer getPointIncrementInterval() {
+        return pointIncrementInterval;
+    }
+
+    public void setPointIncrementInterval(Integer pointIncrementInterval) {
+        this.pointIncrementInterval = pointIncrementInterval;
+    }
+
+    public Integer getNumMaxOccurrencesIncrementInterval() {
+        return numMaxOccurrencesIncrementInterval;
+    }
+
+    public void setNumMaxOccurrencesIncrementInterval(Integer numMaxOccurrencesIncrementInterval) {
+        this.numMaxOccurrencesIncrementInterval = numMaxOccurrencesIncrementInterval;
+    }
+
+    private Integer numMaxOccurrencesIncrementInterval = 1;
 
     public String getId() {
         return id;

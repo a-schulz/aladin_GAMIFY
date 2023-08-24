@@ -28,7 +28,10 @@
             "id": "MatrixMultiplikationSkill",
             "name": "Matrixmultiplikation",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 1,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 770
           },
           {
             "id": "AdjazenzmatrixAblesenSkill",
@@ -62,7 +65,10 @@
             "id": "AufgabeParametrisierenSkill",
             "name": "Aufgabe parametrisieren",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 1,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 770
           }
         ]
       },
@@ -71,23 +77,19 @@
         "name": "Datenbanksysteme",
         "iconClass": "",
         "skills": [
-          {
-            "id": "",
-            "name": "",
-            "description": "",
-            "helpUrl": ""
-          }
         ]
       }
     ],
     "badges": [
       {
-        "id": "",
-        "name": "",
-        "iconClass": "",
+        "id": "GozintographMasterBadge",
+        "name": "Gozintograph Master",
+        "iconClass": "fas fa-award",
         "shouldAdminAchieve": false,
         "skillIds": [
-          ""
+          "AdjazenzmatrixAblesenSkill",
+          "DirektbedarfsmatrixBestimmenSkill",
+          "SekundaerbedarfsmatrixBestimmenSkill"
         ],
         "description": ""
       }

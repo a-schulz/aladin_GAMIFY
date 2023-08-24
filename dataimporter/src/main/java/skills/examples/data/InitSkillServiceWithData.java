@@ -31,6 +31,7 @@ import org.springframework.web.client.RestTemplate;
 import skills.examples.data.model.*;
 import skills.examples.data.serviceRequestModel.*;
 import skills.examples.data.serviceResponseModel.*;
+import skills.examples.utils.Mapper;
 import skills.examples.utils.RestTemplateFactory;
 import skills.examples.utils.SkillsConfig;
 
@@ -333,10 +334,7 @@ public class InitSkillServiceWithData {
             List<Group> groups = subject.getGroups();
             for (Group group : groups) {
                 String groupUrl = subjectUrl + "/skills/" + group.getId();
-                GroupRequest groupRequest = new GroupRequest();
-                groupRequest.setName(group.getName());
-                groupRequest.setDescription(setDescPrefix(group.getDescription()));
-                groupRequest.setSkillId(group.getId());
+                GroupRequest groupRequest = Mapper.mapGroupToRequest(group);
                 groupRequest.setSubjectId(subject.getId());
                 post(rest, groupUrl, groupRequest);
             }
@@ -347,14 +345,7 @@ public class InitSkillServiceWithData {
                 if (skill.getGroupId() != null) {
                     skillUrl = subjectUrl + "/groups/" + skill.getGroupId() + "/skills/" + skill.getId();
                 }
-                SkillRequest skillRequest = new SkillRequest();
-                skillRequest.setName(skill.getName());
-                skillRequest.setDescription(setDescPrefix(skill.getDescription()));
-                skillRequest.setHelpUrl(skill.getHelpUrl());
-                if (skill.isSelfReporting()) {
-                    skillRequest.setSelfReportingType(skill.getSelfReportingType());
-                }
-                skillRequest.setNumPerformToCompletion(2);
+                SkillRequest skillRequest = Mapper.mapSkillToRequest(skill);
                 post(rest, skillUrl, skillRequest);
             }
             log.info("\nCompleted [" + subject.getName() + "] subject");

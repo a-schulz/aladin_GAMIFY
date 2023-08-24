@@ -34,7 +34,7 @@ public class SkillsConfig {
     String password;
     @JsonIgnore
     String authMode = "token";
-    Boolean createRootAccount = true;
+    Boolean createRootAccount = false;
     Boolean dataImportEnabled = true;
     Integer numEvents = 2500;
     Integer numUsers = 34;
