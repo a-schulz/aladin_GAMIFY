@@ -24,7 +24,7 @@ services:
   gamify_authentication:
     container_name: gamify_authentication
     build:
-      context: java-backend-example
+      context: authenticator
     ports:
       - "8090:8090"
     environment:
@@ -36,7 +36,7 @@ services:
       - gamify
     restart: on-failure
     volumes:
-      - ./java-backend-example/src:/usr/src/myapp/src
+      - ./authenticator/src:/usr/src/myapp/src
   gamify_dataimporter:
     container_name: gamify-dataimporter
     build:

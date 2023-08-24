@@ -29,38 +29,59 @@
             "name": "Matrixmultiplikation",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 1,
+            "pointIncrement": 3,
             "numPerformToCompletion": 100,
-            "pointIncrementInterval": 770,
-            "numMaxOccurrencesIncrementInterval": 2
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2,
+            "cloneForUsedMethods": true
           },
           {
             "id": "AdjazenzmatrixAblesenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
             "name": "Adjazenzmatrix ablesen",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 3,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2,
+            "cloneForUsedMethods": true
           },
           {
             "id": "DirektbedarfsmatrixMultiplizierenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
             "name": "Direktbedarfsmatrix multiplizieren",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 3,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2,
+            "cloneForUsedMethods": true
           },
           {
             "id": "GesamtbedarfsmatrixBestimmenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
             "name": "Gesamtbedarfsmatrix bestimmen",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 3,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2,
+            "cloneForUsedMethods": true
           },
           {
             "id": "SekundaerbedarfsvektorBestimmenSkill",
             "groupId": "BetrieblicheInformationssystemeGroup",
             "name": "Sekundärbedarfsvektor bestimmen",
             "description": "",
-            "helpUrl": ""
+            "helpUrl": "",
+            "pointIncrement": 3,
+            "numPerformToCompletion": 100,
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2,
+            "cloneForUsedMethods": true
           }
         ]
       },
@@ -74,9 +95,10 @@
             "name": "Aufgabe parametrisieren",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 1,
-            "numPerformToCompletion": 100,
-            "pointIncrementInterval": 770
+            "pointIncrement": 3,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 720,
+            "numMaxOccurrencesIncrementInterval": 2
           },
           {
             "id": "AufdemWegzumGenieSkill",
@@ -106,8 +128,9 @@
         "shouldAdminAchieve": false,
         "skillIds": [
           "AdjazenzmatrixAblesenSkill",
-          "DirektbedarfsmatrixBestimmenSkill",
-          "SekundaerbedarfsmatrixBestimmenSkill"
+          "DirektbedarfsmatrixMultiplizierenSkill",
+          "GesamtbedarfsmatrixBestimmenSkill",
+          "SekundaerbedarfsvektorBestimmenSkill"
         ],
         "description": ""
       }

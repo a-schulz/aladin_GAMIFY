@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     https://www.apache.org/licenses/LICENSE-2.0
+ * https://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,10 +14,20 @@
  * limitations under the License.
  */
 package skills.examples.data.model;
-
-public class Skill {
+import java.lang.Cloneable;
+public class Skill implements Cloneable {
     private String id;
     private String groupId;
+    private String name;
+    private String description;
+    // optional - valid values are "Approval" or "HonorSystem"
+    private String selfReportingType;
+    private Integer pointIncrement = 20;
+    private Integer numPerformToCompletion = 1;
+    private Integer pointIncrementInterval = 12;
+    private Boolean cloneForUsedMethods = false;
+    private Integer numMaxOccurrencesIncrementInterval = 1;
+    private String helpUrl;
 
     public String getGroupId() {
         return groupId;
@@ -26,11 +36,6 @@ public class Skill {
     public void setGroupId(String groupId) {
         this.groupId = groupId;
     }
-
-    private String name;
-    private String description;
-    // optional - valid values are "Approval" or "HonorSystem"
-    private String selfReportingType;
 
     public String getSelfReportingType() {
         return selfReportingType;
@@ -43,9 +48,14 @@ public class Skill {
     public Boolean isSelfReporting() {
         return selfReportingType != null && (selfReportingType.equals("Approval") || selfReportingType.equals("HonorSystem"));
     }
-    private Integer pointIncrement = 20;
-    private Integer numPerformToCompletion = 1;
-    private Integer pointIncrementInterval = 12;
+
+    public Boolean getCloneForUsedMethods() {
+        return cloneForUsedMethods;
+    }
+
+    public void setCloneForUsedMethods(Boolean cloneForUsedMethods) {
+        this.cloneForUsedMethods = cloneForUsedMethods;
+    }
 
     public Integer getPointIncrement() {
         return pointIncrement;
@@ -79,8 +89,6 @@ public class Skill {
         this.numMaxOccurrencesIncrementInterval = numMaxOccurrencesIncrementInterval;
     }
 
-    private Integer numMaxOccurrencesIncrementInterval = 1;
-
     public String getId() {
         return id;
     }
@@ -113,5 +121,18 @@ public class Skill {
         this.helpUrl = helpUrl;
     }
 
-    private String helpUrl;
+    @Override
+    protected Object clone() throws CloneNotSupportedException {
+        Skill cloned = (Skill) super.clone();
+
+        // Get index of last occurrence of "Skill"
+        int index = this.getId().lastIndexOf("Skill");
+
+        // Construct new ID
+        String newId = this.getId().substring(0, index) + "WithMethodsSkill";
+
+        cloned.setId(newId);
+
+        return cloned;
+    }
 }

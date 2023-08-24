@@ -330,7 +330,6 @@ public class InitSkillServiceWithData {
             log.info("\nCreating [" + subject.getName() + "] subject with [" + subject.getSkills().size() + "] skills");
             String subjectUrl = projectUrl + "/subjects/" + subject.getId();
             post(rest, subjectUrl, new SubjRequest(subject.getName(), "", subject.getIconClass()));
-//            Todo: change no separate request types defaults should be set in base classes
             List<Group> groups = subject.getGroups();
             for (Group group : groups) {
                 String groupUrl = subjectUrl + "/skills/" + group.getId();
@@ -338,7 +337,7 @@ public class InitSkillServiceWithData {
                 groupRequest.setSubjectId(subject.getId());
                 post(rest, groupUrl, groupRequest);
             }
-
+            subject.createUsedMethodsSkills();
             List<Skill> skills = subject.getSkills();
             for (Skill skill : skills) {
                 String skillUrl = subjectUrl + "/skills/" + skill.getId();

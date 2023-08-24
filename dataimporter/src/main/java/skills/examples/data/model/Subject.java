@@ -15,6 +15,7 @@
  */
 package skills.examples.data.model;
 
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
@@ -69,5 +70,28 @@ public class Subject {
 
     public void setSkills(List<Skill> skills) {
         this.skills = skills;
+    }
+
+    public void createUsedMethodsSkills(){
+        List<Skill> clonedSkills = new ArrayList<>();
+        for (Skill skill : this.getSkills()) {
+            if (skill.getCloneForUsedMethods()) {
+                Skill clonedSkill = new Skill();
+                try{
+                clonedSkill = (Skill) skill.clone();
+                }catch(CloneNotSupportedException e){
+                    System.out.println("Clone not supported");
+                }
+
+                // Modify cloned skill
+                clonedSkill.setName(skill.getName() + " (with methods)");
+                clonedSkill.setPointIncrement((int)Math.ceil(skill.getPointIncrement() / 2.0));
+
+                // Add cloned skill to list
+                clonedSkills.add(clonedSkill);
+            }
+        }
+            // Now add the cloned skills
+            this.skills.addAll(clonedSkills);
     }
 }
