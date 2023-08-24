@@ -37,8 +37,8 @@ services:
     restart: on-failure
     volumes:
       - ./java-backend-example/src:/usr/src/myapp/src
-  gamify_dataimport:
-    container_name: gamify_dataimport
+  gamify_dataimporter:
+    container_name: gamify-dataimporter
     build:
       context: dataimporter
     environment:
@@ -48,6 +48,5 @@ services:
       ROOT_USER_PASSWORD: ${ROOT_USER_PASSWORD}
     depends_on:
       - gamify
-    restart: on-failure
     volumes:
       - ./dataimporter/src:/usr/src/myapp/src
