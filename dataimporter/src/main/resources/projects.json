@@ -29,10 +29,10 @@
             "name": "Matrixmultiplikation",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 3,
+            "pointIncrement": 15,
             "numPerformToCompletion": 100,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
           },
           {
@@ -41,10 +41,10 @@
             "name": "Adjazenzmatrix ablesen",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 3,
+            "pointIncrement": 10,
             "numPerformToCompletion": 100,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 6,
             "cloneForUsedMethods": true
           },
           {
@@ -53,10 +53,10 @@
             "name": "Direktbedarfsmatrix multiplizieren",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 3,
-            "numPerformToCompletion": 100,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2,
+            "pointIncrement": 15,
+            "numPerformToCompletion": 200,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 20,
             "cloneForUsedMethods": true
           },
           {
@@ -65,10 +65,10 @@
             "name": "Gesamtbedarfsmatrix bestimmen",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 3,
-            "numPerformToCompletion": 100,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2,
+            "pointIncrement": 15,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
           },
           {
@@ -77,10 +77,10 @@
             "name": "Sekundärbedarfsvektor bestimmen",
             "description": "",
             "helpUrl": "",
-            "pointIncrement": 3,
-            "numPerformToCompletion": 100,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2,
+            "pointIncrement": 20,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
           }
         ]
@@ -96,19 +96,10 @@
             "description": "",
             "helpUrl": "",
             "pointIncrement": 3,
-            "numPerformToCompletion": 50,
-            "pointIncrementInterval": 720,
-            "numMaxOccurrencesIncrementInterval": 2
-          },
-          {
-            "id": "AufdemWegzumGenieSkill",
-            "name": "Auf dem Weg zum Genie",
-            "description": "Löse Aufgaben ohne Lösungshilfen zu verwenden",
-            "helpUrl": "",
-            "pointIncrement": 10,
-            "numPerformToCompletion": 100,
-            "pointIncrementInterval": 120,
-            "numMaxOccurrencesIncrementInterval": 2
+            "numPerformToCompletion": 200,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 15,
+            "cloneForUsedMethods": true
           }
         ]
       },
