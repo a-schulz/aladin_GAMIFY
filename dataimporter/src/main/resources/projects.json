@@ -82,18 +82,6 @@
             "pointIncrementInterval": 60,
             "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
-          },
-          {
-            "id": "SekundaerbedarfsvektorBestimmenSkill",
-            "groupId": "BetrieblicheInformationssystemeGroup",
-            "name": "Sekundärbedarfsvektor bestimmen",
-            "description": "",
-            "helpUrl": "",
-            "pointIncrement": 20,
-            "numPerformToCompletion": 50,
-            "pointIncrementInterval": 60,
-            "numMaxOccurrencesIncrementInterval": 3,
-            "cloneForUsedMethods": true
           }
         ]
       },
