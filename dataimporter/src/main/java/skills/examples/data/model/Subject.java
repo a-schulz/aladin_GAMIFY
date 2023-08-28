@@ -84,7 +84,7 @@ public class Subject {
                 }
 
                 // Modify cloned skill
-                clonedSkill.setName(skill.getName() + " (with methods)");
+                clonedSkill.setName(skill.getName() + " (Hilfe verwendet)");
                 clonedSkill.setPointIncrement((int)Math.ceil(skill.getPointIncrement() / 2.0));
 
                 // Add cloned skill to list

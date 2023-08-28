@@ -82,6 +82,18 @@
             "pointIncrementInterval": 60,
             "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
+          },
+          {
+            "id": "SekundaerbedarfsvektorBestimmenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Sekundärbedarfsvektor bestimmen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 20,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3,
+            "cloneForUsedMethods": true
           }
         ]
       },
@@ -104,10 +116,32 @@
         ]
       },
       {
-        "id": "DatenbanksystemeSubject",
-        "name": "Datenbanksysteme",
+        "id": "InformationsmanagementSubject",
+        "name": "Informationsmanagement",
         "iconClass": "",
+        "groups": [
+        ],
         "skills": [
+          {
+            "id": "MetraPotentialMethodeSkill",
+            "name": "Metra-Potential-Methode durchführen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 15,
+            "numPerformToCompletion": 200,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 20
+          },
+          {
+            "id": "ZeitanalyseDurchfuehrenSkill",
+            "name": "Zeitanalyse durchführen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 20,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3
+          }
         ]
       }
     ],
