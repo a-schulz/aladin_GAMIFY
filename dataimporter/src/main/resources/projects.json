@@ -21,6 +21,11 @@
             "id": "WirtschaftsmathematikGroup",
             "name": "Wirtschaftsmathematik",
             "description": ""
+          },
+          {
+            "id": "InformationsmanagementGroup",
+            "name": "Informationsmanagement",
+            "description": ""
           }
         ],
         "skills": [
@@ -82,6 +87,40 @@
             "pointIncrementInterval": 60,
             "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
+          },
+          {
+            "id": "SekundaerbedarfsvektorBestimmenSkill",
+            "groupId": "BetrieblicheInformationssystemeGroup",
+            "name": "Sekundärbedarfsvektor bestimmen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 20,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3,
+            "cloneForUsedMethods": true
+          },
+          {
+            "id": "MetraPotentialMethodeSkill",
+            "groupId": "InformationsmanagementGroup",
+            "name": "Metra-Potential-Methode durchführen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 15,
+            "numPerformToCompletion": 200,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 20
+          },
+          {
+            "id": "ZeitanalyseDurchfuehrenSkill",
+            "groupId": "InformationsmanagementGroup",
+            "name": "Zeitanalyse durchführen",
+            "description": "",
+            "helpUrl": "",
+            "pointIncrement": 20,
+            "numPerformToCompletion": 50,
+            "pointIncrementInterval": 60,
+            "numMaxOccurrencesIncrementInterval": 3
           }
         ]
       },
