@@ -35,7 +35,16 @@ public class SkillsConfig {
     @JsonIgnore
     String authMode = "token";
     Boolean createRootAccount = false;
-    Boolean dataImportEnabled = true;
+    Boolean reportSkills= false;
+
+    public Boolean getReportSkills() {
+        return reportSkills;
+    }
+
+    public void setReportSkills(Boolean reportSkills) {
+        this.reportSkills = reportSkills;
+    }
+
     Integer numEvents = 2500;
     Integer numUsers = 34;
     Integer numDays = 365;
@@ -49,7 +58,6 @@ public class SkillsConfig {
     public String getPassword() { return password; }
     public String getAuthMode() { return authMode; }
     public Boolean getCreateRootAccount() { return createRootAccount; }
-    public Boolean getDataImportEnabled() { return dataImportEnabled; }
     public Boolean isPkiMode() {
         return authMode.equalsIgnoreCase("pki");
     }

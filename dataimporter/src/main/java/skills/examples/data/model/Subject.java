@@ -18,6 +18,7 @@ package skills.examples.data.model;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Subject {
     private String id;
@@ -25,6 +26,15 @@ public class Subject {
     private String iconClass;
     private List<Group> groups;
     private List<Skill> skills;
+    private Map<String, Level> levels;
+
+    public Map<String, Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Map<String, Level> levels) {
+        this.levels = levels;
+    }
 
     public String getName() {
         return name;

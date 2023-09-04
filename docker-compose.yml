@@ -4,7 +4,7 @@ services:
     image: skilltree/skills-service:2.7.0
     container_name: gamify
     depends_on:
-      - postgres_gamify
+      - gamify_postgres
     ports:
       - "8080:8080"
     environment:
@@ -12,9 +12,9 @@ services:
         spring.datasource.username=${POSTGRES_USER},
         spring.datasource.password=${POSTGRES_PASSWORD},
       - _JAVA_OPTIONS=-Ddebug=debug
-  postgres_gamify:
+  gamify_postgres:
     image: postgres:14
-    container_name: postgres_gamify
+    container_name: gamify_postgres
     environment:
       POSTGRES_USER: ${POSTGRES_USER}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}

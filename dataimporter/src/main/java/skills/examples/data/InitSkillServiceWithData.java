@@ -17,6 +17,7 @@ package skills.examples.data;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -48,13 +49,13 @@ public class InitSkillServiceWithData {
 
     private static final Logger log = LoggerFactory.getLogger(InitSkillServiceWithData.class);
     private static final Pattern PREFIX_PATTERN = Pattern.compile("(?m)(^\\S.+$)");
+    private final ObjectMapper jsonMapper = new ObjectMapper();
     @Autowired
     private SkillsConfig skillsConfig;
     @Autowired
     private RestTemplateFactory restTemplateFactory;
     @Autowired
     private SampleDatasetLoader sampleDatasetLoader;
-    private final ObjectMapper jsonMapper = new ObjectMapper();
 
     @PostConstruct
     void load() throws Exception {
@@ -66,37 +67,35 @@ public class InitSkillServiceWithData {
             createUser(skillsConfig.getServiceUrl() + "/createAccount");
         }
 
-        if (skillsConfig.getDataImportEnabled()) {
-            String serviceUrl = skillsConfig.getServiceUrl();
-            RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
+        String serviceUrl = skillsConfig.getServiceUrl();
+        RestTemplate rest = restTemplateFactory.getTemplateWithAuth();
 
-            List<Project> projects = sampleDatasetLoader.getProjects();
-            projectLoop:
-            for (Project project : projects) {
-                if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(project.getId())) {
-                    log.info("Project [" + project.getName() + "] already exists!");
-                    break;
-                }
-                String projectId = project.getId();
+        List<Project> projects = sampleDatasetLoader.getProjects();
+        for (Project project : projects) {
+            String projectId = project.getId();
+            if (rest.getForEntity(serviceUrl + "/app/projects", String.class).getBody().contains(projectId)) {
+                log.info("Project [" + project.getName() + "] already exists!");
+            } else {
                 post(rest, serviceUrl + "/app/projects/" + projectId, new ProjRequest(project.getName()));
-
-                log.info("\nStarting to create schema for project [" + projectId + "]\n" + "  [" + project.getSubjects().size() + "] subjects\n" + "  [" + project.getBadges().size() + "] badges");
-                String projectUrl = serviceUrl + "/admin/projects/" + projectId;
-                addSubjects(project, rest, projectUrl);
-                addBadges(project, rest, projectUrl);
-
-                // pin the project on the root user's admin view and enable production mode
-                if (skillsConfig.getCreateRootAccount()) {
-                    post(rest, serviceUrl + "/root/pin/" + projectId);
-                }
-                post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
-                post(rest, serviceUrl + "/api/myprojects/" + projectId);
-                achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
-                reportSkills(rest, project);
-                approveAndRejectSomePendingApprovals(project, rest);
-
-                log.info("Project [" + projectId + "] was created!");
             }
+            log.info("\nStarting to create schema for project [" + projectId + "]\n" + "  [" + project.getSubjects().size() + "] subjects\n" + "  [" + project.getBadges().size() + "] badges");
+            String projectUrl = serviceUrl + "/admin/projects/" + projectId;
+            addSubjects(project, rest, projectUrl);
+            addBadges(project, rest, projectUrl);
+            configureLevels(project.getLevels(), rest,projectUrl);
+
+            // pin the project on the root user's admin view and enable production mode
+            post(rest, serviceUrl + "/root/pin/" + projectId);
+            post(rest, serviceUrl + "/admin/projects/" + projectId + "/settings/production.mode.enabled", new SettingRequest(projectId, "production.mode.enabled", "true"));
+            post(rest, serviceUrl + "/api/myprojects/" + projectId);
+            achieveBadges(project, rest, project.getBadges().stream().filter(badge -> badge.isShouldAdminAchieve()).collect(Collectors.toList()));
+            if (skillsConfig.getReportSkills()) {
+                reportSkills(rest, project);
+            }
+            approveAndRejectSomePendingApprovals(project, rest);
+
+            log.info("Project [" + projectId + "] was created!");
+        }
 
 //            assignCrossProjectDependency(rest, "shows", "MarvelsAgentsofSHIELD", "movies", "TheAvengers");
 //            assignDependency(rest, "movies", "TheAvengers", "DespicableMeCollection");
@@ -107,7 +106,6 @@ public class InitSkillServiceWithData {
 //            }
 
 //            createQuizzesAndSurveys(rest);
-        }
         log.info("Done loading data. Exiting.");
         System.exit(0);
     }
@@ -330,26 +328,87 @@ public class InitSkillServiceWithData {
             log.info("\nCreating [" + subject.getName() + "] subject with [" + subject.getSkills().size() + "] skills");
             String subjectUrl = projectUrl + "/subjects/" + subject.getId();
             post(rest, subjectUrl, new SubjRequest(subject.getName(), "", subject.getIconClass()));
+
             List<Group> groups = subject.getGroups();
             for (Group group : groups) {
-                String groupUrl = subjectUrl + "/skills/" + group.getId();
-                GroupRequest groupRequest = Mapper.mapGroupToRequest(group);
-                groupRequest.setSubjectId(subject.getId());
-                post(rest, groupUrl, groupRequest);
+                addGroup(subjectUrl, rest, group, subject.getId());
             }
+
             subject.createUsedMethodsSkills();
             List<Skill> skills = subject.getSkills();
             for (Skill skill : skills) {
-                String skillUrl = subjectUrl + "/skills/" + skill.getId();
-                if (skill.getGroupId() != null) {
-                    skillUrl = subjectUrl + "/groups/" + skill.getGroupId() + "/skills/" + skill.getId();
-                }
-                SkillRequest skillRequest = Mapper.mapSkillToRequest(skill);
-                post(rest, skillUrl, skillRequest);
+                addSkill(subjectUrl, rest, skill);
             }
+            configureLevels(subject.getLevels(), rest,subjectUrl);
             log.info("\nCompleted [" + subject.getName() + "] subject");
         }
     }
+
+    private void addGroup(String subjectUrl, RestTemplate rest, Group group, String subjectId) {
+        String groupUrl = subjectUrl + "/skills/" + group.getId();
+        GroupRequest groupRequest = Mapper.mapGroupToRequest(group);
+        groupRequest.setSubjectId(subjectId);
+        post(rest, groupUrl, groupRequest);
+    }
+
+    private void addSkill(String subjectUrl, RestTemplate rest, Skill skill) {
+        String skillUrl = subjectUrl + "/skills/" + skill.getId();
+        if (skill.getGroupId() != null) {
+            skillUrl = subjectUrl + "/groups/" + skill.getGroupId() + "/skills/" + skill.getId();
+        }
+        SkillRequest skillRequest = Mapper.mapSkillToRequest(skill);
+        post(rest, skillUrl, skillRequest);
+    }
+
+    private void configureLevels(Map<String, Level> levels, RestTemplate rest, String url) {
+        if(levels == null) {
+         log.info("No levels to configure.");
+            return;
+        }
+        String levelsUrl = url + "/levels";
+//        until the keys array is empty
+        Map<String, Level> remoteLevels = getRemoteLevels(rest, levelsUrl);
+        for (Map.Entry<String, Level> entry : levels.entrySet()) {
+            Level level = entry.getValue();
+            level.setLevel(Integer.parseInt(entry.getKey()));
+//            fist edit all existing levels -> if level does not exist create it in correct order
+            if (remoteLevels.get(Integer.toString(level.getLevel())) == null) {
+                createLevel(level, rest, levelsUrl);
+            } else {
+                editLevel(level, rest, levelsUrl);
+            }
+        }
+
+    }
+
+    private Map<String, Level> getRemoteLevels(RestTemplate rest, String url) {
+        String remoteLevels = rest.getForEntity(url, String.class).getBody();
+        ObjectMapper mapper = new ObjectMapper();
+        List<Level> remoteLevelList;
+        try {
+            remoteLevelList = mapper.readValue(remoteLevels, new TypeReference<List<Level>>(){});
+        } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        }
+        // create a map to store the remote levels
+        Map<String, Level> remoteLevelMap = new HashMap<>();
+        // iterate over the remote level list
+        for (Level level : remoteLevelList) {
+            // put the level into the map with the level as the key
+            remoteLevelMap.put(String.valueOf(level.getLevel()), level);
+        }
+        // return the map
+        return remoteLevelMap;
+    }
+    private void editLevel(Level level, RestTemplate rest, String url) {
+        post(rest, url + "/edit/"+ level.getLevel(), level);
+    }
+
+    private void createLevel(Level level, RestTemplate rest, String url) {
+        post(rest, url + "/next", level);
+    }
+
+
 
     private void addGlobalBadge(RestTemplate rest, String serviceUrl, Integer level) {
         String badgeId = "MoviesandShowsExpertBadge";

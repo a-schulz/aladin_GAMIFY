@@ -17,12 +17,22 @@ package skills.examples.data.model;
 
 import java.util.Collections;
 import java.util.List;
+import java.util.Map;
 
 public class Project {
     private String id;
     private List<Subject> subjects;
     private List<Badge> badges;
     private String name;
+    private Map<String, Level> levels;
+
+    public Map<String, Level> getLevels() {
+        return levels;
+    }
+
+    public void setLevels(Map<String, Level> levels) {
+        this.levels = levels;
+    }
 
     public String getId() {
         return id;

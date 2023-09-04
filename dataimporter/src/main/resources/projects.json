@@ -83,7 +83,39 @@
             "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
           }
-        ]
+        ],
+        "levels": {
+          "1": {
+            "percent": 1,
+            "name": "White Belt",
+            "iconClass": "fas fa-user-ninja"
+          },
+          "2": {
+            "percent": 10,
+            "name": "Yellow Belt",
+            "iconClass": "fas fa-user-ninja"
+          },
+          "3": {
+            "percent": 20,
+            "name": "Orange Belt",
+            "iconClass": "fas fa-user-ninja"
+          },
+          "4": {
+            "percent": 30,
+            "name": "Green Belt",
+            "iconClass": "fas fa-user-ninja"
+          },
+          "5": {
+            "percent": 40,
+            "name": "Blue Belt",
+            "iconClass": "fas fa-user-ninja"
+          },
+          "6": {
+            "percent": 50,
+            "name": "Purple Belt",
+            "iconClass": "fas fa-user-ninja"
+          }
+        }
       },
       {
         "id": "UebergreifendSubject",
@@ -148,6 +180,23 @@
         "description": ""
       }
     ],
-    "name": "ALADIN"
+    "name": "ALADIN",
+    "levels": {
+      "1": {
+        "percent": 1,
+        "name": "White Belt",
+        "iconClass": "fas fa-user-ninja"
+      },
+      "2": {
+        "percent": 10,
+        "name": "Yellow Belt",
+        "iconClass": "fas fa-user-ninja"
+      },
+      "3": {
+        "percent": 20,
+        "name": "Orange Belt",
+        "iconClass": "fas fa-user-ninja"
+      }
+    }
   }
 ]
