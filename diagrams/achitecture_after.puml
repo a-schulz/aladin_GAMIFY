@@ -1,0 +1,39 @@
+@startuml example-c4-dynamic-diagram
+!include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
+'skinparam linetype polyline
+skinparam linetype ortho
+
+' Diagram title
+title \nMonitoringsystem - End-State\n
+
+AddRelTag("authentification", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
+AddElementTag("gamification", $bgColor="#444444")
+' Diagram syntax
+Person(person, "User")
+
+' Diagram syntax
+System_Boundary(aladin, "ALADIN Leariningsystem") {
+    Container(gamify_authentication, "SkillTree Authentication", "Java Spring Boot", $tags="gamification")
+    Container(gamify_dataimporter, "SkillTree Dataimporter", "Java Spring Boot", $tags="gamification")
+    Container(gamify, "SkillTree Backend", "Java Spring Boot", $tags="gamification")
+    Container(aladin_backend, "ALADIN Backend", "NodeJS, LTI - Server")
+    Container(aladin_frontend, "ALADIN Frontend", "VueJS, Nginx")
+    ContainerDb(dbpg, "Database", "Postgres", "SkillTree data, user data, sql task database")
+    ContainerDb(dbmongo, "Database", "MongoDB", "TaskDefinition, ALADIN configurations")
+}
+
+Rel_R(person, aladin_frontend, "[1] Access")
+Rel(aladin_frontend, gamify_authentication, "[2] Authenticate", $tags="authentification")
+Rel(gamify_authentication, gamify, "[2] Authenticate", $tags="authentification")
+Rel(aladin_frontend, aladin_backend, "[2]")
+Rel(aladin_frontend, gamify, "[3]")
+Rel(gamify, dbpg, "[3] Read/Write")
+Rel_L(gamify_dataimporter, dbpg, "[adhoc] Read/Write")
+Rel(aladin_backend, dbmongo, "[3] Read/Write")
+Rel(aladin_backend, dbpg, "[3] Read/Write")
+Lay_L(dbpg, aladin_backend)
+' Use complete legend
+LAYOUT_WITH_LEGEND()
+' calculated legend, only show used items
+SHOW_LEGEND()
+@enduml
