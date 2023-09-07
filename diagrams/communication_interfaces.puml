@@ -1,4 +1,4 @@
-@startuml
+@startuml communication_interfaces
 
 skinparam monochrome true
 
@@ -6,7 +6,7 @@ title "Communication and interfaces"
 
 "User" as U
 
-rectangle "ALADIN - Learning Platform" {
+rectangle "ALADIN - Learning platform" {
   file "Task definition" as TD #white
   node "Task" as T
   collections "Replay" as RP #white
@@ -14,7 +14,7 @@ rectangle "ALADIN - Learning Platform" {
 
 file "Gamification definition" as GD #white
 
-rectangle "Skill Tree Platform" {
+rectangle "SkillTree platform" {
   [Projects]
   [Subjects]
   [Groups]

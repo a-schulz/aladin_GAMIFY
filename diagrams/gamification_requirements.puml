@@ -1,0 +1,40 @@
+@startuml gamification_requirements
+left to right direction
+'https://plantuml.com/use-case-diagram
+
+actor Teacher as t
+actor Student as s
+actor Developer as d
+
+rectangle "ALADIN Learning platform"{
+  (Simple and flexible design of gamification elements) as 1
+  (Reward for creating many different tasks/solution paths) as 2
+  (Reward for creating different types of tasks) as 3
+  (Simple configuration of gamification elements, such as points and levels) as 4
+
+  (Reward for solving different tasks through points, levels) as 5
+  (Clear feedback during solving) as 6
+  (Balance between challenge and ability) as 7
+  (Appealing visual design of the gamification elements) as 8
+
+  (Easy integration of gamification elements) as 9
+  (Configuration and parameterization of gamification via JSON files) as 10
+  (Separation of domain-oriented task logic and gamification) as 11
+  (Extensibility by new task types and gamification elements) as 12
+}
+t -- 1
+t -- 2
+t -- 3
+t -- 4
+
+s -- 5
+s -- 6
+s -- 7
+s -- 8
+
+9  -- d
+10 -- d
+11 -- d
+12 -- d
+
+@enduml

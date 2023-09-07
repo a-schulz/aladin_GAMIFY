@@ -1,10 +1,10 @@
-@startuml example-c4-dynamic-diagram
+@startuml architecture_after
 !include https://raw.githubusercontent.com/plantuml-stdlib/C4-PlantUML/master/C4_Container.puml
 'skinparam linetype polyline
 skinparam linetype ortho
 
 ' Diagram title
-title \nMonitoringsystem - End-State\n
+title ALADIN Learning platform - gamified\n
 
 AddRelTag("authentification", $textColor="orange", $lineColor="orange", $lineStyle = DashedLine())
 AddElementTag("gamification", $bgColor="#444444")
@@ -12,7 +12,7 @@ AddElementTag("gamification", $bgColor="#444444")
 Person(person, "User")
 
 ' Diagram syntax
-System_Boundary(aladin, "ALADIN Leariningsystem") {
+System_Boundary(aladin, "ALADIN Learning platform") {
     Container(gamify_authentication, "SkillTree Authentication", "Java Spring Boot", $tags="gamification")
     Container(gamify_dataimporter, "SkillTree Dataimporter", "Java Spring Boot", $tags="gamification")
     Container(gamify, "SkillTree Backend", "Java Spring Boot", $tags="gamification")

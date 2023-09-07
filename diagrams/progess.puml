@@ -1,0 +1,36 @@
+@startuml
+start
+:Abgleich der JSON Aufzeichnung mit der grafischen Oberfläche;
+:Vereinfachen des JSON mittels jq;
+:Bauen einer Komponente zum Labeln von nützlichen und ignorierten Pfaden;
+if (Erster Ansatz) then (Ja)
+  :Festlegen von Metriken;
+  :Konvertierung der gesamten Aufzeichnung in ein JSON-Object;
+  :Auswerten des JSON-Objects;
+else (Nein)
+  if (Zweiter Ansatz) then (Ja)
+    :Verwendung des TaskDefinitionJSONS mit Erweiterung;
+  else (Nein)
+    if (Dritter Ansatz) then (Ja)
+      :Erweitern der Steps;
+      :Bauen eines Labbelers für die GamificationElemente;
+    else (Nein)
+      :Zusammenzählen des Scores;
+      :Verrechnen mit dem maximal möglichen Score;
+      :Abspeichern des Gamification Scores;
+      if (Finaler Ansatz) then (Ja)
+        :Config für Node/Componente und Skill;
+        :Abspeichern des Skills bei erfolgreichem Ausfüllen;
+        if (Speichern von Zwischenständen) then (Ja)
+          :Abspeichern von Zwischenständen mittels Punkten;
+        else (Nein)
+          :Ende;
+        endif
+      else (Nein)
+        :Ende;
+      endif
+    endif
+  endif
+endif
+stop
+@enduml
