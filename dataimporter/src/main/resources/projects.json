@@ -3,23 +3,13 @@
     "id": "ALADIN",
     "subjects": [
       {
-        "id": "WirtschaftsinformatikSubject",
-        "name": "Wirtschaftsinformatik",
+        "id": "ProduktionswirtschaftslehreSubject",
+        "name": "Produktionswirtschaftslehre",
         "iconClass": "",
         "groups": [
           {
-            "id": "BetrieblicheInformationssystemeGroup",
-            "name": "Betriebliche Informationssysteme",
-            "description": ""
-          },
-          {
-            "id": "GrundlagenderInformatikGroup",
-            "name": "Grundlangen der Informatik",
-            "description": ""
-          },
-          {
-            "id": "WirtschaftsmathematikGroup",
-            "name": "Wirtschaftsmathematik",
+            "id": "StuecklistenGroup",
+            "name": "Stücklistenauflösung",
             "description": ""
           }
         ],
@@ -37,7 +27,7 @@
           },
           {
             "id": "AdjazenzmatrixAblesenSkill",
-            "groupId": "BetrieblicheInformationssystemeGroup",
+            "groupId": "StuecklistenGroup",
             "name": "Adjazenzmatrix ablesen",
             "description": "",
             "helpUrl": "",
@@ -49,7 +39,7 @@
           },
           {
             "id": "DirektbedarfsmatrixMultiplizierenSkill",
-            "groupId": "BetrieblicheInformationssystemeGroup",
+            "groupId": "StuecklistenGroup",
             "name": "Direktbedarfsmatrix multiplizieren",
             "description": "",
             "helpUrl": "",
@@ -61,7 +51,7 @@
           },
           {
             "id": "GesamtbedarfsmatrixBestimmenSkill",
-            "groupId": "BetrieblicheInformationssystemeGroup",
+            "groupId": "StuecklistenGroup",
             "name": "Gesamtbedarfsmatrix bestimmen",
             "description": "",
             "helpUrl": "",

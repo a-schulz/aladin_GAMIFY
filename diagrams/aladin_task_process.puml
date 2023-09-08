@@ -16,9 +16,11 @@
     :Backend creates API to fetch
     task definition and generated task|
 |Frontend|
-    :Fetch task definition;
+    :Fetch task overview;
     :Initialize the UI;
     :Choose task to solve;
+    :Fetch task definition;
+    :Load task UI;
     group "Execute the Task" {
         note right
             Record all actions for the replay
