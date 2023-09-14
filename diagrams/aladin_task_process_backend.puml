@@ -1,0 +1,23 @@
+@startuml aladin_task_process_backend
+'https://plantuml.com/activity-diagram-beta
+
+|Backend|
+    start
+    group "Definition der Aufgabe" {
+    floating note right
+        Generierung des Artefaktes
+        Aufgabe.json
+    end note
+        :Schnittstelle definieren;
+        :Worker definieren;
+        group "Grafische Oberfläche definieren" {
+            :Ansichten definieren;
+            :Reihenfolge der Ansichten festlegen;
+            :Hinweise definieren;
+        }
+    }
+    :Aufgabengenerator programmieren;
+    :Backend erstellt die Schnittstelle zum Abrufen von:
+    Aufgabendefinition, parametrisierten Aufgabe|
+    end
+@enduml
