@@ -27,6 +27,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.apache.http.impl.conn.PoolingHttpClientConnectionManager;
 import org.apache.http.ssl.SSLContexts;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.web.client.RestTemplateBuilder;
 import org.springframework.http.*;
 import org.springframework.http.client.ClientHttpRequestFactory;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
@@ -51,7 +52,7 @@ public class RestTemplateFactory {
         return this.getTemplateWithAuth(skillsConfig.getUsername());
     }
     public RestTemplate getTemplateWithAuth(String username) {
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = new RestTemplateBuilder().errorHandler(new RestTemplateResponseErrorHandler()).build();
         if (!skillsConfig.getAuthMode().equalsIgnoreCase("pki")) {
             // must configure HttpComponentsClientHttpRequestFactory as SpringTemplate does
             // not by default keeps track of session

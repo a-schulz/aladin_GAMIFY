@@ -63,7 +63,7 @@
           },
           {
             "id": "SekundaerbedarfsvektorBestimmenSkill",
-            "groupId": "BetrieblicheInformationssystemeGroup",
+            "groupId": "StuecklistenGroup",
             "name": "Sekundärbedarfsvektor bestimmen",
             "description": "",
             "helpUrl": "",
