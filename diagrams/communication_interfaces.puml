@@ -1,33 +1,33 @@
 @startuml communication_interfaces
 
-skinparam monochrome true
+'skinparam monochrome true
 
-title "Communication and interfaces"
+title "Gamification Schnittstelle"
 
-"User" as U
+"Benutzer" as U
 
-rectangle "ALADIN - Learning platform" {
-  file "Task definition" as TD #white
-  node "Task" as T
-  collections "Replay" as RP #white
+rectangle "Lernplattform ALADIN" {
+  file "Aufgabendefinition.json" as TD
+  node "Aufgabe" as T
+  collections "Aufzeichnung/Replay.json" as RP
 }
 
-file "Gamification definition" as GD #white
+file "Gamificationdefinition" as GD #gold
 
-rectangle "SkillTree platform" {
-  [Projects]
-  [Subjects]
-  [Groups]
-  [Skills]
+rectangle "SkillTree Plattform" {
+  [Projekt]
+  [Themengebiet]
+  [Gruppe]
+  [Fähigkeit]
 }
-T ..> RP : leads to
-TD --> T : defines
-RP -right(0- GD : maps
-GD -right0)- [Skills]: to
-T "n" <-l- "n" U : executes
-[Projects] "1" *-- "n" [Subjects]
-[Subjects] "1" *-- "n" [Groups]
-[Groups] "n" *-- "n" [Skills]
-[Subjects] "n" *-- "n" [Skills]
+TD --> T : definiert
+T "n" <-l- "n" U : bearbeitet
+T ..> RP : führt zu
+RP -right(0- GD : verbindet
+GD -right0)- [Fähigkeit]: mit
+[Projekt] "1" *-- "n" [Themengebiet]
+[Themengebiet] "1" *-- "n" [Gruppe]
+[Gruppe] "n" *-- "n" [Fähigkeit]
+[Themengebiet] "n" *-- "n" [Fähigkeit]
 
 @enduml
