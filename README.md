@@ -1,7 +1,6 @@
 # Bachelorarbeit Alexander Schulz
 
-[Link zur Bachelorarbeit](https://htwonline-my.sharepoint.com/:w:/g/personal/s82105_htwonline_onmicrosoft_com/ERWkPndI9kdHny3B9tV80oYBZDvwUgAcw4HO6xyZXG4RlA?e=3bOMXb
-)
+[Link zur Bachelorarbeit](https://htwonline-my.sharepoint.com/:w:/g/personal/s82105_htwonline_onmicrosoft_com/EdRJPq4B1ZJIufXnwarxFU4B-RtDTSeKG54-U039xEIhlA)
 
 ## Überblick
 
