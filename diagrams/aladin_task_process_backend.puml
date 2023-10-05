@@ -18,6 +18,6 @@
     }
     :Aufgabengenerator programmieren;
     :Backend erstellt die Schnittstelle zum Abrufen von:
-    Aufgabendefinition, parametrisierten Aufgabe|
+    Aufgabendefinition und parametrisierten Aufgaben|
     end
 @enduml

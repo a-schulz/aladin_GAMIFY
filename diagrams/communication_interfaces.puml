@@ -17,17 +17,17 @@ file "Gamificationdefinition" as GD #gold
 rectangle "SkillTree Plattform" {
   [Projekt]
   [Themengebiet]
-  [Gruppe]
-  [Fähigkeit]
+  [Fähigkeitengruppe\n(Skill-Gruppe)] as SG
+  [Fähigkeit\n(Skill)] as S
 }
 TD --> T : definiert
 T "n" <-l- "n" U : bearbeitet
 T ..> RP : führt zu
 RP -right(0- GD : verbindet
-GD -right0)- [Fähigkeit]: mit
+GD -right0)- S: mit
 [Projekt] "1" *-- "n" [Themengebiet]
-[Themengebiet] "1" *-- "n" [Gruppe]
-[Gruppe] "n" *-- "n" [Fähigkeit]
-[Themengebiet] "n" *-- "n" [Fähigkeit]
+[Themengebiet] "1" *-- "n" SG
+SG "n" *-- "n" S
+[Themengebiet] "n" *-- "n" S
 
 @enduml

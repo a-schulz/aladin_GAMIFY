@@ -1,0 +1,22 @@
+@startuml gamification_definition_interface_structure
+left to right direction
+ interface ISkillsMapping {
+  [key: string]:
+    | { value: any, skillIds: string[] }
+    | { value: any, distinction: IDistinctionItem[] };
+}
+
+ interface IDistinctionItem {
+  skillIds: string[];
+  [key: string]: any;
+}
+
+interface IGamificationDefinition {
+  [key: string]: {
+    skillsDisplaySubject?: string,
+    skillsMapping: ISkillsMapping
+  };
+}
+IGamificationDefinition <-- ISkillsMapping
+ISkillsMapping <-- IDistinctionItem
+@enduml
