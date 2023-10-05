@@ -1,6 +1,7 @@
 [
   {
     "id": "ALADIN",
+    "name": "ALADIN",
     "subjects": [
       {
         "id": "ProduktionswirtschaftslehreSubject",
@@ -8,39 +9,39 @@
         "iconClass": "",
         "groups": [
           {
-            "id": "StuecklistenGroup",
-            "name": "Stücklistenauflösung",
+            "id": "StuecklistenMatrixmultiplikationGroup",
+            "name": "Stücklistenauflösung - Matrixmultiplikation",
             "description": ""
           }
         ],
         "skills": [
           {
             "id": "AdjazenzmatrixAblesenSkill",
-            "groupId": "StuecklistenGroup",
+            "groupId": "StuecklistenMatrixmultiplikationGroup",
             "name": "Adjazenzmatrix ablesen",
             "description": "",
             "helpUrl": "",
             "pointIncrement": 10,
-            "numPerformToCompletion": 100,
+            "numPerformToCompletion": 25,
             "pointIncrementInterval": 60,
-            "numMaxOccurrencesIncrementInterval": 6,
+            "numMaxOccurrencesIncrementInterval": 5,
             "cloneForUsedMethods": true
           },
           {
             "id": "DirektbedarfsmatrixMultiplizierenSkill",
-            "groupId": "StuecklistenGroup",
+            "groupId": "StuecklistenMatrixmultiplikationGroup",
             "name": "Direktbedarfsmatrix multiplizieren",
             "description": "",
             "helpUrl": "",
             "pointIncrement": 15,
-            "numPerformToCompletion": 200,
+            "numPerformToCompletion": 50,
             "pointIncrementInterval": 60,
-            "numMaxOccurrencesIncrementInterval": 20,
+            "numMaxOccurrencesIncrementInterval": 10,
             "cloneForUsedMethods": true
           },
           {
             "id": "GesamtbedarfsmatrixBestimmenSkill",
-            "groupId": "StuecklistenGroup",
+            "groupId": "StuecklistenMatrixmultiplikationGroup",
             "name": "Gesamtbedarfsmatrix bestimmen",
             "description": "",
             "helpUrl": "",
@@ -52,7 +53,7 @@
           },
           {
             "id": "SekundaerbedarfsvektorBestimmenSkill",
-            "groupId": "StuecklistenGroup",
+            "groupId": "StuecklistenMatrixmultiplikationGroup",
             "name": "Sekundärbedarfsvektor bestimmen",
             "description": "",
             "helpUrl": "",
@@ -65,34 +66,54 @@
         ],
         "levels": {
           "1": {
-            "percent": 1,
-            "name": "White Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 2,
+            "name": "Einsteiger",
+            "iconClass": "fas fa-graduation-cap"
           },
           "2": {
-            "percent": 10,
-            "name": "Yellow Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 4,
+            "name": "Fortgeschrittener",
+            "iconClass": "fas fa-graduation-cap"
           },
           "3": {
-            "percent": 20,
-            "name": "Orange Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 8,
+            "name": "Kenner",
+            "iconClass": "fas fa-graduation-cap"
           },
           "4": {
-            "percent": 30,
-            "name": "Green Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 12,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
           },
           "5": {
-            "percent": 40,
-            "name": "Blue Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 21,
+            "name": "Profi",
+            "iconClass": "fas fa-graduation-cap"
           },
           "6": {
-            "percent": 50,
-            "name": "Purple Belt",
-            "iconClass": "fas fa-user-ninja"
+            "percent": 33,
+            "name": "Spezialist",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "7": {
+            "percent": 49,
+            "name": "Fachmann",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "8": {
+            "percent": 69,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "9": {
+            "percent": 89,
+            "name": "Professionell",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "10": {
+            "percent": 95,
+            "name": "Meister",
+            "iconClass": "fas fa-graduation-cap"
           }
         }
       },
@@ -116,8 +137,7 @@
             "pointIncrement": 3,
             "numPerformToCompletion": 200,
             "pointIncrementInterval": 60,
-            "numMaxOccurrencesIncrementInterval": 15,
-            "cloneForUsedMethods": true
+            "numMaxOccurrencesIncrementInterval": 15
           },
           {
             "id": "MatrixMultiplikationSkill",
@@ -131,7 +151,59 @@
             "numMaxOccurrencesIncrementInterval": 3,
             "cloneForUsedMethods": true
           }
-        ]
+        ],
+        "levels": {
+          "1": {
+            "percent": 2,
+            "name": "Einsteiger",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "2": {
+            "percent": 4,
+            "name": "Fortgeschrittener",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "3": {
+            "percent": 8,
+            "name": "Kenner",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "4": {
+            "percent": 12,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "5": {
+            "percent": 21,
+            "name": "Profi",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "6": {
+            "percent": 33,
+            "name": "Spezialist",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "7": {
+            "percent": 49,
+            "name": "Fachmann",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "8": {
+            "percent": 69,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "9": {
+            "percent": 89,
+            "name": "Professionell",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "10": {
+            "percent": 95,
+            "name": "Meister",
+            "iconClass": "fas fa-graduation-cap"
+          }
+        }
       },
       {
         "id": "InformationsmanagementSubject",
@@ -160,7 +232,59 @@
             "pointIncrementInterval": 60,
             "numMaxOccurrencesIncrementInterval": 3
           }
-        ]
+        ],
+        "levels": {
+          "1": {
+            "percent": 2,
+            "name": "Einsteiger",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "2": {
+            "percent": 4,
+            "name": "Fortgeschrittener",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "3": {
+            "percent": 7,
+            "name": "Kenner",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "4": {
+            "percent": 11,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "5": {
+            "percent": 16,
+            "name": "Profi",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "6": {
+            "percent": 22,
+            "name": "Spezialist",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "7": {
+            "percent": 29,
+            "name": "Fachmann",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "8": {
+            "percent": 37,
+            "name": "Experte",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "9": {
+            "percent": 46,
+            "name": "Professionell",
+            "iconClass": "fas fa-graduation-cap"
+          },
+          "10": {
+            "percent": 56,
+            "name": "Meister",
+            "iconClass": "fas fa-graduation-cap"
+          }
+        }
       }
     ],
     "badges": [
@@ -178,22 +302,66 @@
         "description": ""
       }
     ],
-    "name": "ALADIN",
     "levels": {
       "1": {
-        "percent": 1,
-        "name": "White Belt",
-        "iconClass": "fas fa-user-ninja"
+        "percent": 3,
+        "name": "Anfänger",
+        "iconClass": "fas fa-graduation-cap"
       },
       "2": {
-        "percent": 10,
-        "name": "Yellow Belt",
-        "iconClass": "fas fa-user-ninja"
+        "percent": 7,
+        "name": "Neuling",
+        "iconClass": "fas fa-graduation-cap"
       },
       "3": {
-        "percent": 20,
-        "name": "Orange Belt",
-        "iconClass": "fas fa-user-ninja"
+        "percent": 12,
+        "name": "Einsteiger",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "4": {
+        "percent": 18,
+        "name": "Schüler",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "5": {
+        "percent": 25,
+        "name": "Lernender",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "6": {
+        "percent": 33,
+        "name": "Fortschreitend",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "7": {
+        "percent": 42,
+        "name": "Versierter",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "8": {
+        "percent": 52,
+        "name": "Experte",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "9": {
+        "percent": 63,
+        "name": "Profi",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "10": {
+        "percent": 75,
+        "name": "Meister",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "11": {
+        "percent": 88,
+        "name": "Großmeister",
+        "iconClass": "fas fa-graduation-cap"
+      },
+      "12": {
+        "percent": 100,
+        "name": "Legende",
+        "iconClass": "fas fa-graduation-cap"
       }
     }
   }

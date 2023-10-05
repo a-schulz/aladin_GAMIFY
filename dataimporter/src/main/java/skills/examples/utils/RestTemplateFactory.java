@@ -92,6 +92,10 @@ public class RestTemplateFactory {
         }
         return restTemplate;
     }
+    public RestTemplate getTemplate() {
+        RestTemplate restTemplate = new RestTemplateBuilder().errorHandler(new RestTemplateResponseErrorHandler()).build();
+        return restTemplate;
+    }
 
     private ClientHttpRequestFactory getHttpRequestFactory() {
         HttpComponentsClientHttpRequestFactory clientHttpRequestFactory = new HttpComponentsClientHttpRequestFactory();
