@@ -627,7 +627,7 @@ public class InitSkillServiceWithData {
 
     private void createRootAccount() {
         String url = skillsConfig.getServiceUrl();
-        RestTemplate restTemplate = new RestTemplate();
+        RestTemplate restTemplate = restTemplateFactory.getTemplate();
         if (skillsConfig.isPkiMode()) {
             restTemplate.put(url + "/grantFirstRoot", null);
             log.info("\n-----------------\nCreated Root User:\n  DN=[" + getDn() + "]\n----------------");

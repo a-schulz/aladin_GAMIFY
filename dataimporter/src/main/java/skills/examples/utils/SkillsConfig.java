@@ -34,7 +34,7 @@ public class SkillsConfig {
     String password;
     @JsonIgnore
     String authMode = "token";
-    Boolean createRootAccount = false;
+    Boolean createRootAccount = true;
     Boolean reportSkills= false;
 
     public Boolean getReportSkills() {

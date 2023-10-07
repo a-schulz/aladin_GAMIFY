@@ -1,0 +1,34 @@
+@startuml aladin_task_process_frontend
+'https://plantuml.com/activity-diagram-beta
+
+|Frontend|
+    start
+    :Abrufen der Aufgabenübersicht vom Backend;
+    :Grafische Oberfläche initialisieren;
+    :Auswahl der Aufgabe;
+    :Abrufen der Aufgabendefinition vom Backend;
+    note right
+        Verwendung des Artefaktes Aufgabe.json
+    end note
+    :Oberfläche der Aufgabe laden;
+    group "Lösen der Aufgabe" {
+        note right
+            Aufzeichnung aller Aktionen
+            Generierung des Artefaktes Replay.json
+        end note
+        :Setzen der Parameter für die Aufgabengenerierung;
+        :Abrufen der generierten Aufgabe vom Backend;
+        while (Unteraufgaben verfügbar?)
+            if (Gibt es mehrere Lösungswege?)
+                :Lösungsweg auswählen;
+            endif
+                :Lösen der (Unter-)Aufgabe;
+        endwhile
+        :Aufgabe abgeschlossen|
+    }
+    :Senden der Aufzeichnung an das Backend;
+    note right
+        Speichern der Replay.json
+    end note
+    end
+@enduml
