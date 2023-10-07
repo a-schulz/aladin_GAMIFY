@@ -1,6 +1,7 @@
+*English version below*
 # Bachelorarbeit Alexander Schulz
 
-[Link zur Bachelorarbeit](https://htwonline-my.sharepoint.com/:w:/g/personal/s82105_htwonline_onmicrosoft_com/EdRJPq4B1ZJIufXnwarxFU4B-RtDTSeKG54-U039xEIhlA)
+[Link zur Bachelorarbeit](./docs/Bachelorarbeit_Exemplarische_Entwicklung_von_Gamification_Elementen_in_der_Lernplattform_ALADIN.pdf)
 
 ## Überblick
 
@@ -49,3 +50,42 @@ vorhanden und kann als Vorlage verwendet werden.
 Sobald diese vorhanden ist, kann mittels `docker compose up` das Projekt gestartet werden.
 
 Sobald die Container laufen, kann auf den service unter `http://localhost:8080` zugegriffen werden.
+
+---
+
+# Bachelor thesis Alexander Schulz
+
+[Link to the bachelor thesis](./docs/Bachelorarbeit_Exemplarische_Entwicklung_von_Gamification_Elementen_in_der_Lernplattform_ALADIN.pdf)
+
+## Overview
+
+To gamify the learning platform ALADIN the [SkillTree Platform](https://skilltreeplatform.dev/) was used. In addition, further services had to be created to enable a system that is as automated as possible.
+## Notes
+
+In the repository there is also a ["debug frontend"](./aladin-gamify), which was used during the development to test the functions.
+
+Furthermore there are important [graphics](./diagrams) in the repository, which were mainly generated using PlantUML.
+## Services
+
+### SkillTree Service
+
+Exclusively present in the [docker-compose.yml](./docker-compose.yml). The service is responsible for managing the SkillTree Platform.
+
+###SkillTree Authenticator
+
+[Authenticator](./authenticator) is a service responsible for authenticating users and is required for a separate frontend (ALADIN CARPET). This service can be configured [here](./authenticator/src/main/java/skills/examples/utils/SkillsConfig.java).
+
+### SkillTree Dataimporter
+
+[Dataimporter](./dataimporter) is a service responsible for importing data into the SkillTree Platform. The structure of projects, subjects, skills and levels can be defined [here](./dataimporter/src/main/resources/projects.json). The service itself can be configured [here](./dataimporter/src/main/java/skills/examples/utils/SkillsConfig.java).
+
+##  Tools
+### Insomnia
+
+Insomnia is a program that allows to create and test HTTP requests. It is possible to group the requests into collections and export them. The collections can then be imported into Insomnia. [Here](./.insomnia) are the requests that were used during development.
+
+## Setup
+
+Use of .env files. The .env files must be located in the root directory of the project. A demo.env is available and can be used as a template. Once this is in place, `docker compose` up can be used to start the project.
+
+Once the containers are running, the service can be accessed at `http://localhost:8080`.
